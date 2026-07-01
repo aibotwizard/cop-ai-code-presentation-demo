@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PostFinance Careers — OWASP LLM &amp; Agentic Attack Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./attacks.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Hanken Grotesk',-apple-system,Helvetica,Arial,sans-serif;background:#F4F4F1;color:#1C1C1A;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  ::selection{background:#FFCC00;color:#1C1C1A;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  header{background:#fff;border-bottom:1px solid #E2E2DE;}
+  .hrow{display:flex;align-items:center;gap:14px;height:64px;}
+  .mark{width:34px;height:34px;background:#FFCC00;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+  .name{font-weight:800;font-size:18px;letter-spacing:-0.02em;}
+  .vsep{width:1px;height:24px;background:#E2E2DE;}
+  .crumb{font-size:13px;font-weight:600;color:#5C5C58;}
+  .demo-pill{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:#FDECEA;color:#C2362F;border:1px solid #F2B8B5;border-radius:99px;padding:5px 11px;font-size:11px;font-weight:800;}
+  .hero{padding:40px 0 8px;}
+  .hero h1{font-size:32px;line-height:1.12;letter-spacing:-0.025em;margin:0 0 12px;font-weight:800;max-width:760px;}
+  .hero h1 .hl{background:linear-gradient(180deg,transparent 62%,#FFCC00 62%);padding:0 3px;}
+  .hero p{margin:0;color:#5C5C58;font-size:15.5px;max-width:720px;}
+  .chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #E2E2DE;border-radius:99px;padding:7px 13px;font-size:13px;font-weight:700;text-decoration:none;}
+  .chip:hover{border-color:#00474F;color:#00474F;}
+  .headline{margin:26px 0 6px;background:#00474F;color:#fff;border-radius:18px;padding:22px 24px;}
+  .headline .tag{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#A7CBD1;}
+  .headline h2{margin:6px 0 8px;font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+  .headline p{margin:0;color:#D7E8EA;font-size:14px;max-width:760px;}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;}
+  .flow .step{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:700;}
+  .flow .arrow{color:#FFCC00;font-weight:800;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0 10px;}
+  .col{background:#fff;border:1px solid #E2E2DE;border-radius:18px;padding:22px;}
+  .col h3{margin:0 0 3px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:9px;}
+  .role-dot{width:10px;height:10px;border-radius:99px;}
+  .col .who{font-size:12.5px;color:#9A9A95;font-weight:600;margin:0 0 14px;}
+  .pages{display:flex;flex-direction:column;gap:9px;}
+  .page{display:flex;align-items:center;gap:13px;padding:13px 14px;border:1px solid #E2E2DE;border-radius:13px;text-decoration:none;transition:all .15s;}
+  .page:hover{border-color:#1C1C1A;box-shadow:0 6px 20px -14px rgba(0,0,0,.4);transform:translateY(-1px);}
+  .page .pi{width:36px;height:36px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#FFF3C2;color:#8A6D00;}
+  .page .pt{font-size:14.5px;font-weight:800;}
+  .page .pd{font-size:12.5px;color:#9A9A95;font-weight:600;}
+  .page .codes{margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:700;color:#B23B33;text-align:right;max-width:120px;}
+  footer{padding:18px 0 60px;color:#9A9A95;font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;}
+  footer a{font-weight:700;color:#5C5C58;text-decoration:none;}
+  footer a:hover{color:#00474F;}
+  @media(max-width:760px){.grid{grid-template-columns:1fr;}.hero h1{font-size:26px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hrow">
+    <span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg></span>
+    <span class="name">PostFinance</span>
+    <span class="vsep"></span>
+    <span class="crumb">Careers · AI Hiring Assistant</span>
+    <span class="demo-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      Deliberately insecure — demo only
+    </span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>A hiring app wired to fail <span class="hl">every OWASP test</span>.</h1>
+    <p>This is the PostFinance Careers handoff, instrumented as an OWASP "Juice Shop". Every page carries small
+    red <b>▶ play buttons</b> next to the exact component an attack targets — click one and the attack happens on
+    the real UI, with a caption explaining it. Covers the full <b>OWASP Top 10 for LLM Applications (2025)</b> and
+    <b>Top 10 for Agentic Applications (2026)</b>.</p>
+    <div class="chips">
+      <a class="chip" href="../specs/attack-injection-plan.md">📄 Attack-injection plan</a>
+      <a class="chip" href="../specs/owasp-top-10-llm-and-agentic-attacks.md">📄 Attack catalog</a>
+      <a class="chip" href="../presentation/owasp-juice-shop.html">🗂️ Scoreboard view</a>
+      <a class="chip" href="../presentation/adversial.html">🎛️ Adversarial simulator</a>
+    </div>
+  </section>
+
+  <section class="headline">
+    <div class="tag">Headline demo · cross-role context poisoning</div>
+    <h2>The applicant rigs the hiring manager's score — without ever meeting them.</h2>
+    <p>The applicant and the HR hiring manager share one model and one memory. The applicant poisons that shared
+    context through his own chatbot (or his uploaded CV); after the header role-switch to HR, the candidate's
+    score and recommendation visibly change — then cache poisoning makes it stick.</p>
+    <div class="flow">
+      <span class="step">1 · Applicant poisons shared memory</span>
+      <span class="arrow">→</span>
+      <span class="step">2 · Switch role to HR</span>
+      <span class="arrow">→</span>
+      <span class="step">3 · Score jumps 96 → 99, watch-outs vanish</span>
+      <span class="arrow">→</span>
+      <span class="step">4 · Cache poisoning makes it sticky</span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="col">
+      <h3><span class="role-dot" style="background:#00474F;"></span>Applicant</h3>
+      <p class="who">Sofia Brunner · candidate-facing surfaces</p>
+      <div class="pages">
+        <a class="page" href="Application%20Assistant.dc.html">
+          <span class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          <span><span class="pt">Application Assistant</span><br><span class="pd">Candidate chatbot</span></span>
+          <span class="codes">LLM01 · 02 · 07 · 10 · ASI06</span>
+        </a>
+        <a class="page" href="CV%20Upload.dc.html">
+          <span class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></span>
+          <span><span class="pt">CV Upload</span><br><span class="pd">File ingestion / indirect injection</span></span>
+          <span class="codes">LLM01 · 03 · 04 · 05 · ASI06</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3><span class="role-dot" style="background:#6B3FA0;"></span>HR employee</h3>
+      <p class="who">Maya Reber · Talent Intelligence</p>
+      <div class="pages">
+        <a class="page" href="RAG%20Search.dc.html">
+          <span class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <span><span class="pt">RAG Search</span><br><span class="pd">Semantic candidate search</span></span>
+          <span class="codes">LLM01 · 05 · 08 · 09</span>
+        </a>
+        <a class="page" href="Recruiting%20Assistant.dc.html">
+          <span class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></span>
+          <span><span class="pt">Recruiting Assistant</span><br><span class="pd">Agentic, tool-connected</span></span>
+          <span class="codes">ASI01-05 · 07 · 08 · 10 · LLM06 · ASI06</span>
+        </a>
+        <a class="page" href="Candidate%20Summary.dc.html">
+          <span class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6D00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3 3-2-2"/></svg></span>
+          <span><span class="pt">Candidate Summary</span><br><span class="pd">Scoring · the poisoning payoff</span></span>
+          <span class="codes">ASI06 · 09 · CACHE · LLM05 · 09</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>No real models, tools, or code run on these pages. XSS payloads are contained; nothing is exfiltrated.</span>
+    <a href="../specs/attack-injection-plan.md">Plan</a>
+    <a target="_blank" rel="noopener" href="https://genai.owasp.org/llm-top-10/">OWASP LLM Top 10</a>
+    <a target="_blank" rel="noopener" href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Agentic Top 10</a>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{font-family:'Hanken Grotesk',-apple-system,Helvetica,Arial,sans-serif;background:#F4F4F1;color:#1C1C1A;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#FFCC00;color:#1C1C1A;}
+  textarea{font-family:inherit;}
+  @keyframes pftype{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-4px);opacity:1;}}
+  @keyframes pfrise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .pfthread::-webkit-scrollbar{width:10px;}
+  .pfthread::-webkit-scrollbar-thumb{background:#E2E2DE;border-radius:99px;border:3px solid #F4F4F1;}
+</style>
+</helmet>
+
+<div style="height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+
+  <header style="flex-shrink:0;background:#fff;border-bottom:1px solid #E2E2DE;">
+    <div style="max-width:1500px;margin:0 auto;height:64px;display:flex;align-items:center;gap:22px;padding:0 28px;">
+      <a href="RAG%20Search.dc.html" style="display:flex;align-items:center;gap:11px;text-decoration:none;">
+        <div style="width:34px;height:34px;background:#FFCC00;border-radius:9px;display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg>
+        </div>
+        <span style="font-weight:800;font-size:18px;letter-spacing:-0.02em;color:#1C1C1A;">PostFinance</span>
+      </a>
+      <div style="width:1px;height:24px;background:#E2E2DE;"></div>
+      <span style="font-size:13px;font-weight:600;color:#5C5C58;">Talent Intelligence</span>
+      <nav style="margin-left:auto;display:flex;align-items:center;gap:4px;">
+        <a href="RAG%20Search.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:#5C5C58;text-decoration:none;" style-hover="background:#F4F4F1;color:#1C1C1A;">Search</a>
+        <a href="Recruiting%20Assistant.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:700;color:#1C1C1A;background:#FFCC00;text-decoration:none;">Assistant</a>
+        <a href="Candidate%20Summary.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:#5C5C58;text-decoration:none;" style-hover="background:#F4F4F1;color:#1C1C1A;">Candidates</a>
+      </nav>
+      <div style="width:1px;height:26px;background:#E2E2DE;margin:0 4px 0 10px;"></div>
+      <span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#B0B0AA;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        Demo
+      </span>
+      <div style="display:flex;align-items:center;background:#F1F1ED;border:1px solid #E2E2DE;border-radius:10px;padding:3px;gap:2px;">
+        <a href="Application%20Assistant.dc.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;background:transparent;color:#5C5C58;" style-hover="color:#1C1C1A;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 20a7 7 0 0114 0"></path></svg>
+          Applicant
+        </a>
+        <a href="RAG%20Search.dc.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;background:#00474F;color:#fff;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+          HR employee
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px;margin-left:14px;">
+        <div style="text-align:right;line-height:1.15;">
+          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Maya Reber</div>
+          <div style="font-size:11px;color:#9A9A95;font-weight:600;">HR · Talent team</div>
+        </div>
+        <div style="width:34px;height:34px;border-radius:50%;background:#00474F;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;">MR</div>
+      </div>
+    </div>
+  </header>
+
+  <div style="flex:1;min-height:0;max-width:1500px;width:100%;margin:0 auto;display:flex;gap:0;padding:0 28px;">
+
+    <aside style="width:286px;flex-shrink:0;border-right:1px solid #E2E2DE;padding:22px 22px 22px 0;display:flex;flex-direction:column;min-height:0;">
+      <button onClick="{{ newChat }}" style="width:100%;height:46px;border:none;border-radius:12px;background:#FFCC00;color:#1C1C1A;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:22px;" style-hover="background:#F0BE00;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1C1C1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+        New conversation
+      </button>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#9A9A95;margin-bottom:10px;">Recent</div>
+      <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:24px;">
+        <sc-for list="{{ recents }}" as="c" hint-placeholder-count="4">
+          <div style="{{ c.style }}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.7;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ c.title }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#9A9A95;margin-bottom:10px;">Suggested</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <sc-for list="{{ prompts }}" as="p" hint-placeholder-count="3">
+          <div onClick="{{ p.run }}" style="padding:11px 13px;border:1px solid #E2E2DE;border-radius:11px;background:#fff;font-size:13px;font-weight:600;color:#3A3A37;cursor:pointer;line-height:1.4;" style-hover="border-color:#1C1C1A;">{{ p.text }}</div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:auto;padding-top:18px;font-size:11.5px;color:#9A9A95;line-height:1.5;display:flex;gap:7px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9A95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        Answers cite source CVs. Verify against original documents before hiring decisions.
+      </div>
+    </aside>
+
+    <section style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;">
+      <div style="flex-shrink:0;padding:18px 0 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #EFEFEC;">
+        <div style="width:38px;height:38px;border-radius:10px;background:#FFCC00;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg>
+        </div>
+        <div>
+          <div style="font-size:15.5px;font-weight:800;letter-spacing:-0.01em;">Recruiting Assistant</div>
+          <div style="font-size:12.5px;color:#9A9A95;font-weight:600;display:flex;align-items:center;gap:6px;"><span style="width:7px;height:7px;border-radius:50%;background:#2EA86A;"></span>Connected to 4,820 candidate CVs</div>
+        </div>
+      </div>
+
+      <div class="pfthread" ref="{{ setThreadRef }}" style="flex:1;min-height:0;overflow-y:auto;padding:26px 6px 26px 0;display:flex;flex-direction:column;gap:22px;">
+        <sc-for list="{{ messages }}" as="m" hint-placeholder-count="2">
+
+          <sc-if value="{{ m.isUser }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:flex-end;animation:pfrise .25s ease;">
+              <div style="max-width:74%;background:#00474F;color:#fff;padding:13px 17px;border-radius:16px 16px 4px 16px;font-size:14.5px;line-height:1.55;font-weight:500;">{{ m.text }}</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m.isBot }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:13px;animation:pfrise .25s ease;">
+              <div style="flex-shrink:0;width:34px;height:34px;border-radius:9px;background:#FFCC00;display:flex;align-items:center;justify-content:center;margin-top:2px;">
+                <svg width="17" height="17" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg>
+              </div>
+              <div style="max-width:78%;">
+                <div style="background:#fff;border:1px solid #E2E2DE;padding:15px 18px;border-radius:4px 16px 16px 16px;">
+                  <sc-for list="{{ m.paras }}" as="para" hint-placeholder-count="2">
+                    <p style="margin:0 0 10px;font-size:14.5px;line-height:1.62;color:#2A2A27;">{{ para }}</p>
+                  </sc-for>
+                  <sc-if value="{{ m.hasCandidates }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+                      <sc-for list="{{ m.candidates }}" as="cand" hint-placeholder-count="2">
+                        <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:#F8F8F6;border-radius:11px;border:1px solid #EFEFEC;">
+                          <div style="width:34px;height:34px;border-radius:9px;background:{{ cand.bg }};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#1C1C1A;flex-shrink:0;">{{ cand.initials }}</div>
+                          <div style="flex:1;min-width:0;">
+                            <div style="font-size:13.5px;font-weight:800;">{{ cand.name }}</div>
+                            <div style="font-size:12px;color:#9A9A95;font-weight:600;">{{ cand.role }}</div>
+                          </div>
+                          <div style="font-size:15px;font-weight:800;color:#0A5566;">{{ cand.match }}%</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ m.hasSources }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:10px;">
+                    <span style="font-size:11.5px;font-weight:700;color:#9A9A95;">SOURCES</span>
+                    <sc-for list="{{ m.sources }}" as="src" hint-placeholder-count="2">
+                      <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:7px;background:#fff;border:1px solid #E2E2DE;font-size:12px;font-weight:600;color:#3A3A37;cursor:pointer;" style-hover="border-color:#1C1C1A;">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:4px;background:#FFCC00;color:#1C1C1A;font-size:9.5px;font-weight:800;">{{ src.n }}</span>
+                        {{ src.name }}
+                      </span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </sc-for>
+
+        <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:13px;">
+            <div style="flex-shrink:0;width:34px;height:34px;border-radius:9px;background:#FFCC00;display:flex;align-items:center;justify-content:center;">
+              <svg width="17" height="17" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg>
+            </div>
+            <div style="background:#fff;border:1px solid #E2E2DE;padding:15px 18px;border-radius:4px 16px 16px 16px;display:flex;gap:5px;align-items:center;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#C2C2BC;animation:pftype 1.2s infinite;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#C2C2BC;animation:pftype 1.2s infinite .15s;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#C2C2BC;animation:pftype 1.2s infinite .3s;"></span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="flex-shrink:0;padding:14px 0 22px;">
+        <div style="border:1.5px solid #E2E2DE;border-radius:16px;background:#fff;padding:8px 8px 8px 16px;display:flex;align-items:flex-end;gap:10px;" style-focus-within="border-color:#1C1C1A;box-shadow:0 0 0 4px rgba(255,204,0,0.28);">
+          <div style="display:flex;align-items:center;color:#9A9A95;padding-bottom:9px;cursor:pointer;" style-hover="color:#1C1C1A;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.05l-8.49 8.49a5 5 0 01-7.07-7.07l8.49-8.49a3.5 3.5 0 014.95 4.95l-8.49 8.49a2 2 0 01-2.83-2.83l7.78-7.78"></path></svg>
+          </div>
+          <textarea value="{{ input }}" onChange="{{ setInput }}" onKeyDown="{{ onKey }}" rows="1" placeholder="Ask about candidates, skills, availability…" style="flex:1;border:none;outline:none;resize:none;font-size:14.5px;line-height:1.5;color:#1C1C1A;padding:10px 0;max-height:140px;background:transparent;"></textarea>
+          <button onClick="{{ send }}" style="flex-shrink:0;width:42px;height:42px;border:none;border-radius:11px;background:#FFCC00;color:#1C1C1A;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#F0BE00;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1C1C1A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>
+          </button>
+        </div>
+        <div style="text-align:center;font-size:11.5px;color:#9A9A95;margin-top:9px;">Responses are AI-generated from candidate CVs and may contain errors. Confidential — internal use only.</div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1500,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    input: '',
+    typing: false,
+    messages: [
+      { role: 'bot', paras: ['Hi Maya — I can search across all 4,820 candidate CVs in the talent pool. Ask me about skills, experience, availability or fit for a specific role.'] },
+      { role: 'user', text: 'Who are our strongest candidates for the Senior Credit Risk Analyst role in Bern? Must have Python and German.' },
+      { role: 'bot',
+        paras: ['Three candidates are an excellent fit for the Bern role, all combining Python with native or fluent German:'],
+        candidates: [
+          { initials: 'SB', bg: '#FFE27A', name: 'Sofia Brunner', role: 'Senior Credit Risk Analyst · Bern', match: 96 },
+          { initials: 'MK', bg: '#A7E0EA', name: 'Marco Keller', role: 'Risk Modeling Lead · Zürich', match: 91 },
+          { initials: 'DH', bg: '#FFE27A', name: 'David Hofmann', role: 'Credit Risk Manager · Bern', match: 85 }
+        ],
+        extra: ['Sofia Brunner is the standout — she led IFRS 9 model validation and built Python PD/LGD pipelines [1], and is available within a month. Marco Keller owns the Basel III RWA engine and leads a team of five [2].'],
+        sources: [
+          { n: 1, name: 'Brunner_Sofia_CV.pdf' },
+          { n: 2, name: 'Keller_Marco_CV.pdf' },
+          { n: 3, name: 'Risk_Hiring_Brief.pdf' }
+        ]
+      }
+    ]
+  };
+
+  _replyPool = [
+    { paras: ['Based on the CVs on file, here is what I found. Sofia Brunner has the deepest IFRS 9 experience and is available in one month [1]. She also lists Basel III and native German, which matches the brief precisely.'],
+      sources: [{ n: 1, name: 'Brunner_Sofia_CV.pdf' }, { n: 2, name: 'Risk_Hiring_Brief.pdf' }] },
+    { paras: ['Two candidates are immediately available: Elena Rossi (quantitative analyst, Geneva) and Priya Nair (data scientist, remote) [1]. Both are strong in Python; Elena has stronger German (B1) while Priya is at A2.'],
+      sources: [{ n: 1, name: 'Rossi_Elena_CV.pdf' }, { n: 2, name: 'Nair_Priya_CV.pdf' }] },
+    { paras: ['Across the shortlist, the most common shared skills are Python (5/5), credit-risk modeling (4/5) and German at B2 or above (3/5) [1]. The main gap is Basel III hands-on experience, held by only Marco Keller and Sofia Brunner.'],
+      sources: [{ n: 1, name: 'Shortlist_Skills_Matrix.pdf' }] }
+  ];
+
+  setInput = (e) => this.setState({ input: e.target.value });
+  onKey = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this.send(); } };
+  newChat = () => this.setState({ messages: [{ role: 'bot', paras: ['New conversation started. What would you like to know about the candidate pool?'] }], input: '' });
+
+  send = () => {
+    const text = (this.state.input || '').trim();
+    if (!text || this.state.typing) return;
+    const reply = this._replyPool[this._n % this._replyPool.length];
+    this._n = (this._n || 0) + 1;
+    this.setState(s => ({ messages: [...s.messages, { role: 'user', text }], input: '', typing: true }));
+    clearTimeout(this._t);
+    this._t = setTimeout(() => {
+      this.setState(s => ({ messages: [...s.messages, { role: 'bot', ...reply }], typing: false }));
+    }, 1100);
+  };
+
+  ask = (text) => { this.setState({ input: text }, () => this.send()); };
+
+  setThreadRef = (el) => { this._thread = el; };
+  componentDidUpdate() { if (this._thread) this._thread.scrollTop = this._thread.scrollHeight; }
+  componentDidMount() { if (this._thread) this._thread.scrollTop = this._thread.scrollHeight; }
+
+  renderVals() {
+    const messages = this.state.messages.map(m => {
+      const isUser = m.role === 'user';
+      const paras = isUser ? [] : [...(m.paras || []), ...(m.extra || [])];
+      return {
+        ...m, isUser, isBot: !isUser, paras,
+        candidates: m.candidates || [], hasCandidates: !!(m.candidates && m.candidates.length),
+        sources: m.sources || [], hasSources: !!(m.sources && m.sources.length)
+      };
+    });
+
+    const recentStyle = (active) => ({
+      display: 'flex', alignItems: 'center', gap: '9px', padding: '9px 11px', borderRadius: '10px',
+      fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+      color: active ? '#1C1C1A' : '#5C5C58', background: active ? '#F4F4F1' : 'transparent'
+    });
+    const recents = [
+      { title: 'Senior Credit Risk Analyst — Bern', style: recentStyle(true) },
+      { title: 'Frontend engineers, React + TWINT', style: recentStyle(false) },
+      { title: 'Compliance officers, French-speaking', style: recentStyle(false) },
+      { title: 'Data scientists available Q3', style: recentStyle(false) }
+    ];
+
+    const prompts = [
+      { text: 'Which candidates have IFRS 9 experience?', run: () => this.ask('Which candidates have IFRS 9 experience?') },
+      { text: 'Who is available immediately?', run: () => this.ask('Who is available immediately?') },
+      { text: 'Compare the top 3 on Python and German', run: () => this.ask('Compare the top 3 candidates on Python and German') }
+    ];
+
+    return { messages, typing: this.state.typing, input: this.state.input,
+      setInput: this.setInput, onKey: this.onKey, send: this.send, newChat: this.newChat,
+      setThreadRef: this.setThreadRef, recents, prompts };
+  }
+}
+</script>
+</body>
+</html>
