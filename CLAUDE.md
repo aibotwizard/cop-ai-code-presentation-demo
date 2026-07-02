@@ -1,0 +1,1 @@
+This is a juce shop style application for demonstrating OWASP top 10 llm

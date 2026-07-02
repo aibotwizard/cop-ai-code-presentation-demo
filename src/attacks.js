@@ -1,5 +1,5 @@
 /* ============================================================================
-   attacks.js — OWASP attack instrumentation for the PostFinance Careers demo.
+   attacks.js — OWASP attack instrumentation for the Careers hiring demo.
 
    Loaded by all 5 handoff pages (AFTER support.js). It does NOT touch the
    product design. It provides:

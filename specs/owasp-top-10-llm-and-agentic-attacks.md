@@ -17,7 +17,7 @@ A deliberately‑vulnerable AI app that lets an audience *see each attack happen
 
 ## 0. Concept — the vulnerable app
 
-The demo reuses the handoff's world: **"PostFinance Careers — AI Hiring Assistant."** It is a *deliberately
+The demo reuses the handoff's world: **"Careers — AI Hiring Assistant."** It is a *deliberately
 insecure* recruiting app (think OWASP Juice Shop, but for LLM/agentic flaws) made of four moving parts that
 map onto the handoff screens:
 
@@ -132,7 +132,7 @@ client‑side) demo that plays the vulnerable assistant's response, and a **"Fix
 - **R1 — Single self‑contained file.** Ship as `presentation/owasp-juice-shop.html` (one file, no build step,
   no external JS deps; Google Fonts via CDN allowed, matching the handoff).
 - **R2 — Handoff visual language.** Reuse the handoff design tokens: Hanken Grotesk; `#FFCC00` (accent),
-  `#00474F` (teal), `#F4F4F1` (bg), `#1C1C1A` (ink), `#E2E2DE` (hairline). PostFinance "Careers" header from
+  `#00474F` (teal), `#F4F4F1` (bg), `#1C1C1A` (ink), `#E2E2DE` (hairline). "Careers" header from
   `Application Assistant.dc.html`.
 - **R3 — Scoreboard layout (Juice‑Shop style).** Header → intro/hero → controls bar (search + filter:
   All / LLM / Agentic / by severity) → responsive grid of **20 challenge cards** → footer with source links.

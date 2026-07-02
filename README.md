@@ -1,6 +1,6 @@
 # COP AI — OWASP LLM & Agentic Attack Playground
 
-A **deliberately‑insecure** PostFinance "Careers" hiring app used as a live demo of the
+A **deliberately‑insecure** "Careers" hiring app used as a live demo of the
 **OWASP Top 10 for LLM Applications (2025)** and the **OWASP Top 10 for Agentic Applications (2026)**.
 
 Every page carries small red **▶ play buttons** next to the exact UI component an attack targets. Click one
