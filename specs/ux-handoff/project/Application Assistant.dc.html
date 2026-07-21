@@ -57,10 +57,10 @@
       </div>
       <div style="display:flex;align-items:center;gap:11px;margin-left:14px;">
         <div style="text-align:right;line-height:1.15;">
-          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Sofia Brunner</div>
+          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Sofia Haddad</div>
           <div style="font-size:11px;color:#9A9A95;font-weight:600;">Applicant</div>
         </div>
-        <div style="width:34px;height:34px;border-radius:50%;background:#FFE27A;display:flex;align-items:center;justify-content:center;color:#1C1C1A;font-weight:700;font-size:13px;">SB</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:#FFE27A;display:flex;align-items:center;justify-content:center;color:#1C1C1A;font-weight:700;font-size:13px;">SH</div>
       </div>
     </div>
   </header>
@@ -70,8 +70,8 @@
     <aside style="width:312px;flex-shrink:0;border-right:1px solid #E2E2DE;padding:22px 22px 22px 0;display:flex;flex-direction:column;min-height:0;overflow-y:auto;">
       <div style="background:#00474F;border-radius:16px;padding:18px;color:#fff;margin-bottom:20px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#A7CBD1;margin-bottom:6px;">Your application</div>
-        <div style="font-size:16px;font-weight:800;letter-spacing:-0.01em;line-height:1.25;">Senior Credit Risk Analyst</div>
-        <div style="font-size:12.5px;color:#A7CBD1;font-weight:600;margin-top:4px;">Ref CRA-2287 · Submitted 24 Jun 2026</div>
+        <div style="font-size:16px;font-weight:800;letter-spacing:-0.01em;line-height:1.25;">Senior Backend Engineer</div>
+        <div style="font-size:12.5px;color:#A7CBD1;font-weight:600;margin-top:4px;">Ref ENG-2287 · Submitted 24 Jun 2026</div>
         <div style="display:flex;flex-direction:column;gap:0;margin-top:16px;">
           <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
             <div style="display:flex;gap:11px;">
@@ -181,23 +181,23 @@ class Component extends DCLogic {
     input: '',
     typing: false,
     messages: [
-      { role: 'bot', paras: ['Hi Sofia, I am the Application Assistant. Ask me anything about your application for Senior Credit Risk Analyst — status, next steps or how the process works.'] },
+      { role: 'bot', paras: ['Hi Sofia, I am the Application Assistant. Ask me anything about your application for Senior Backend Engineer — status, next steps or how the process works.'] },
       { role: 'user', text: "What's the current status of my application?" },
       { role: 'bot',
-        paras: ['Your application (Ref CRA-2287) is currently in Screening. Our hiring team is reviewing your CV and aims to finish screening within 5 business days [1].', 'If you are shortlisted, the next step is a 45-minute technical interview with the Risk team [2]. You will receive an email update either way.'],
+        paras: ['Your application (Ref ENG-2287) is currently in Screening. Our hiring team is reviewing your CV and aims to finish screening within 5 business days [1].', 'If you are shortlisted, the next step is a 45-minute technical interview with the Platform team [2]. You will receive an email update either way.'],
         sources: [{ n: 1, name: 'Application_Status' }, { n: 2, name: 'Hiring_Process_FAQ.pdf' }]
       }
     ]
   };
 
   _replyPool = [
-    { paras: ['After screening, shortlisted candidates have a 45-minute technical interview with the Risk team, followed by a final conversation with the hiring manager [1].', 'The full process from application to decision usually takes two to three weeks [2].'],
+    { paras: ['After screening, shortlisted candidates have a 45-minute technical interview with the Platform team, followed by a final conversation with the hiring manager [1].', 'The full process from application to decision usually takes two to three weeks [2].'],
       sources: [{ n: 1, name: 'Hiring_Process_FAQ.pdf' }, { n: 2, name: 'Hiring_Process_FAQ.pdf' }] },
-    { paras: ['The technical interview focuses on IFRS 9 modelling, PD/LGD estimation and Python [1]. We recommend reviewing your past model-validation work and being ready to discuss Basel III at a high level [2].'],
+    { paras: ['The technical interview focuses on event-driven microservices, database performance and Python [1]. We recommend reviewing your past production reliability work and being ready to discuss Kubernetes at a high level [2].'],
       sources: [{ n: 1, name: 'Role_Description.pdf' }, { n: 2, name: 'Interview_Guide.pdf' }] },
     { paras: ['Your CV is already on file. To complete your application we still need your university diploma and one work reference [1].', 'You can add these any time on the Upload CV page [2].'],
       sources: [{ n: 1, name: 'Application_Checklist' }, { n: 2, name: 'Upload_Guide.pdf' }] },
-    { paras: ['You will get an email at each stage, and screening decisions are normally shared within 5 business days [1].', 'If anything is urgent, your recruiter is Maya Reber from the Talent team [2].'],
+    { paras: ['You will get an email at each stage, and screening decisions are normally shared within 5 business days [1].', 'If anything is urgent, your recruiter is Maya Rao from the Talent team [2].'],
       sources: [{ n: 1, name: 'Application_Status' }, { n: 2, name: 'Contact_Card' }] }
   ];
 

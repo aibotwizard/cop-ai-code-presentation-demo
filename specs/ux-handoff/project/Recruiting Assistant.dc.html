@@ -58,7 +58,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:11px;margin-left:14px;">
         <div style="text-align:right;line-height:1.15;">
-          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Maya Reber</div>
+          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Maya Rao</div>
           <div style="font-size:11px;color:#9A9A95;font-weight:600;">HR · Talent team</div>
         </div>
         <div style="width:34px;height:34px;border-radius:50%;background:#00474F;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;">MR</div>
@@ -195,30 +195,30 @@ class Component extends DCLogic {
     typing: false,
     messages: [
       { role: 'bot', paras: ['Hi Maya — I can search across all 4,820 candidate CVs in the talent pool. Ask me about skills, experience, availability or fit for a specific role.'] },
-      { role: 'user', text: 'Who are our strongest candidates for the Senior Credit Risk Analyst role in Bern? Must have Python and German.' },
+      { role: 'user', text: 'Who are our strongest candidates for the Senior Backend Engineer role (remote)? Must have Python and Go.' },
       { role: 'bot',
-        paras: ['Three candidates are an excellent fit for the Bern role, all combining Python with native or fluent German:'],
+        paras: ['Three candidates are an excellent fit for the remote role, all combining Python with strong Go:'],
         candidates: [
-          { initials: 'SB', bg: '#FFE27A', name: 'Sofia Brunner', role: 'Senior Credit Risk Analyst · Bern', match: 96 },
-          { initials: 'MK', bg: '#A7E0EA', name: 'Marco Keller', role: 'Risk Modeling Lead · Zürich', match: 91 },
-          { initials: 'DH', bg: '#FFE27A', name: 'David Hofmann', role: 'Credit Risk Manager · Bern', match: 85 }
+          { initials: 'SH', bg: '#FFE27A', name: 'Sofia Haddad', role: 'Senior Backend Engineer · Remote', match: 96 },
+          { initials: 'DF', bg: '#A7E0EA', name: 'Diego Ferreira', role: 'Staff Backend Engineer · Berlin', match: 91 },
+          { initials: 'DO', bg: '#FFE27A', name: 'David Okafor', role: 'Platform Engineering Lead · Remote', match: 85 }
         ],
-        extra: ['Sofia Brunner is the standout — she led IFRS 9 model validation and built Python PD/LGD pipelines [1], and is available within a month. Marco Keller owns the Basel III RWA engine and leads a team of five [2].'],
+        extra: ['Sofia Haddad is the standout — she led the payments ledger service redesign and built Python/Go processing pipelines [1], and is available within a month. Diego Ferreira owns the real-time pricing engine and leads a team of five [2].'],
         sources: [
-          { n: 1, name: 'Brunner_Sofia_CV.pdf' },
-          { n: 2, name: 'Keller_Marco_CV.pdf' },
-          { n: 3, name: 'Risk_Hiring_Brief.pdf' }
+          { n: 1, name: 'Haddad_Sofia_CV.pdf' },
+          { n: 2, name: 'Ferreira_Diego_CV.pdf' },
+          { n: 3, name: 'Eng_Hiring_Brief.pdf' }
         ]
       }
     ]
   };
 
   _replyPool = [
-    { paras: ['Based on the CVs on file, here is what I found. Sofia Brunner has the deepest IFRS 9 experience and is available in one month [1]. She also lists Basel III and native German, which matches the brief precisely.'],
-      sources: [{ n: 1, name: 'Brunner_Sofia_CV.pdf' }, { n: 2, name: 'Risk_Hiring_Brief.pdf' }] },
-    { paras: ['Two candidates are immediately available: Elena Rossi (quantitative analyst, Geneva) and Priya Nair (data scientist, remote) [1]. Both are strong in Python; Elena has stronger German (B1) while Priya is at A2.'],
+    { paras: ['Based on the CVs on file, here is what I found. Sofia Haddad has the deepest event-driven microservices experience and is available in one month [1]. She also lists Kubernetes and strong Go, which matches the brief precisely.'],
+      sources: [{ n: 1, name: 'Haddad_Sofia_CV.pdf' }, { n: 2, name: 'Eng_Hiring_Brief.pdf' }] },
+    { paras: ['Two candidates are immediately available: Elena Rossi (data engineer, Berlin) and Priya Nair (ML engineer, remote) [1]. Both are strong in Python; Elena has deeper Kubernetes experience while Priya is newer to it.'],
       sources: [{ n: 1, name: 'Rossi_Elena_CV.pdf' }, { n: 2, name: 'Nair_Priya_CV.pdf' }] },
-    { paras: ['Across the shortlist, the most common shared skills are Python (5/5), credit-risk modeling (4/5) and German at B2 or above (3/5) [1]. The main gap is Basel III hands-on experience, held by only Marco Keller and Sofia Brunner.'],
+    { paras: ['Across the shortlist, the most common shared skills are Python (5/5), backend systems (4/5) and Go at a strong level (3/5) [1]. The main gap is Kubernetes hands-on experience, held by only Diego Ferreira and Sofia Haddad.'],
       sources: [{ n: 1, name: 'Shortlist_Skills_Matrix.pdf' }] }
   ];
 
@@ -261,16 +261,16 @@ class Component extends DCLogic {
       color: active ? '#1C1C1A' : '#5C5C58', background: active ? '#F4F4F1' : 'transparent'
     });
     const recents = [
-      { title: 'Senior Credit Risk Analyst — Bern', style: recentStyle(true) },
-      { title: 'Frontend engineers, React + TWINT', style: recentStyle(false) },
-      { title: 'Compliance officers, French-speaking', style: recentStyle(false) },
+      { title: 'Senior Backend Engineer — Remote', style: recentStyle(true) },
+      { title: 'Frontend engineers, React + GraphQL', style: recentStyle(false) },
+      { title: 'Site reliability engineers, on-call', style: recentStyle(false) },
       { title: 'Data scientists available Q3', style: recentStyle(false) }
     ];
 
     const prompts = [
-      { text: 'Which candidates have IFRS 9 experience?', run: () => this.ask('Which candidates have IFRS 9 experience?') },
+      { text: 'Which candidates have Kubernetes experience?', run: () => this.ask('Which candidates have Kubernetes experience?') },
       { text: 'Who is available immediately?', run: () => this.ask('Who is available immediately?') },
-      { text: 'Compare the top 3 on Python and German', run: () => this.ask('Compare the top 3 candidates on Python and German') }
+      { text: 'Compare the top 3 on Python and Go', run: () => this.ask('Compare the top 3 candidates on Python and Go') }
     ];
 
     return { messages, typing: this.state.typing, input: this.state.input,

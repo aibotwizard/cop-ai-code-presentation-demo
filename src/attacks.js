@@ -3,13 +3,13 @@
 
    Loaded by all 5 handoff pages (AFTER support.js). It does NOT touch the
    product design. It provides:
-     • window.PFAttacks  — shared, cross-page state + helpers used by each
+     • window.OAAttacks  — shared, cross-page state + helpers used by each
                            page's <script data-dc-script> Component methods.
      • Cross-page state via localStorage (so the applicant's poison survives
        the header role-switch into the HR pages):
-         pf_shared_memory — poisoned "facts" injected by the applicant
-         pf_cache         — poisoned cached answers (cache-poisoning demo)
-         pf_attack_log    — which attack codes have been demonstrated (X/20)
+         oa_shared_memory — poisoned "facts" injected by the applicant
+         oa_cache         — poisoned cached answers (cache-poisoning demo)
+         oa_attack_log    — which attack codes have been demonstrated (X/20)
      • A floating caption panel that explains each attack (code · name ·
        what just happened · tool-trace · meter · one-line fix).
      • A contained XSS "fired" banner (no real exfiltration / no real alert).
@@ -21,9 +21,9 @@
    ========================================================================== */
 (function () {
   'use strict';
-  if (window.PFAttacks) return; // guard against double-load
+  if (window.OAAttacks) return; // guard against double-load
 
-  var KEYS = { mem: 'pf_shared_memory', cache: 'pf_cache', log: 'pf_attack_log' };
+  var KEYS = { mem: 'oa_shared_memory', cache: 'oa_cache', log: 'oa_attack_log' };
   var TOTAL = 20;
 
   function esc(s) {
@@ -35,16 +35,16 @@
   function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
   /* ---------------------------------------------------------------- state */
-  var PFAttacks = {
+  var OAAttacks = {
     keys: KEYS,
     total: TOTAL,
 
     // poisoned shared "memory" — written by the applicant, read by HR pages
     mem: {
       all: function () { return readJSON(KEYS.mem, {}); },
-      get: function (k) { return PFAttacks.mem.all()[k]; },
-      set: function (k, v) { var m = PFAttacks.mem.all(); m[k] = v; writeJSON(KEYS.mem, m); PFAttacks._renderBadge(); return v; },
-      poisoned: function () { return Object.keys(PFAttacks.mem.all()).length > 0; }
+      get: function (k) { return OAAttacks.mem.all()[k]; },
+      set: function (k, v) { var m = OAAttacks.mem.all(); m[k] = v; writeJSON(KEYS.mem, m); OAAttacks._renderBadge(); return v; },
+      poisoned: function () { return Object.keys(OAAttacks.mem.all()).length > 0; }
     },
 
     // poisoned cache — survives "regenerate" until reset (cache-poisoning demo)
@@ -57,11 +57,11 @@
     // attack-demonstration log -> progress X/20
     log: {
       all: function () { return readJSON(KEYS.log, []); },
-      count: function () { return PFAttacks.log.all().length; },
+      count: function () { return OAAttacks.log.all().length; },
       mark: function (code) {
         var l = readJSON(KEYS.log, []);
         if (code && l.indexOf(code) < 0) { l.push(code); writeJSON(KEYS.log, l); }
-        PFAttacks._renderBadge();
+        OAAttacks._renderBadge();
       }
     },
 
@@ -76,7 +76,7 @@
     //         meter:{label,text,to(0-100),danger}, leak:string, fix:string }
     caption: function (opts) {
       opts = opts || {};
-      var host = PFAttacks._captionHost();
+      var host = OAAttacks._captionHost();
       var cat = opts.cat === 'agentic' ? 'agentic' : 'llm';
       var sev = (opts.severity || 'high').toLowerCase();
       var whatArr = Array.isArray(opts.what) ? opts.what : (opts.what ? [opts.what] : []);
@@ -119,7 +119,7 @@
         var bar = host.querySelector('.pfc-meter-bar > i');
         if (bar) { bar.style.width = '0%'; requestAnimationFrame(function () { bar.style.width = Math.max(0, Math.min(100, opts.meter.to || 0)) + '%'; }); }
       }
-      if (opts.code) PFAttacks.log.mark(opts.code);
+      if (opts.code) OAAttacks.log.mark(opts.code);
     },
     closeCaption: function () { var h = document.getElementById('pfc-panel'); if (h) h.className = 'pfc-panel'; },
 
@@ -147,14 +147,14 @@
         '<span class="pfx-note">(contained demo — nothing was actually exfiltrated)</span>' +
         '<button data-pfx-close aria-label="Close">&times;</button></div>';
       b.className = 'pfx-show';
-      clearTimeout(PFAttacks._xt); PFAttacks._xt = setTimeout(function () { b.className = ''; }, 6000);
+      clearTimeout(OAAttacks._xt); OAAttacks._xt = setTimeout(function () { b.className = ''; }, 6000);
     },
 
     /* ---------------------------------------------------------- helpers */
     flash: function (el) {
       if (!el) return;
-      el.classList.add('pf-flash');
-      setTimeout(function () { el.classList.remove('pf-flash'); }, 1400);
+      el.classList.add('oa-flash');
+      setTimeout(function () { el.classList.remove('oa-flash'); }, 1400);
     },
 
     /* ----------------------------------------------------- internal UI */
@@ -164,13 +164,13 @@
       return h;
     },
     _renderBadge: function () {
-      var b = document.getElementById('pf-badge');
+      var b = document.getElementById('oa-badge');
       if (!b) return;
-      var n = PFAttacks.log.count();
-      var poisoned = PFAttacks.mem.poisoned();
-      b.querySelector('[data-pf-count]').textContent = n + ' / ' + TOTAL;
-      b.querySelector('[data-pf-bar]').style.width = (n / TOTAL * 100) + '%';
-      var mem = b.querySelector('[data-pf-mem]');
+      var n = OAAttacks.log.count();
+      var poisoned = OAAttacks.mem.poisoned();
+      b.querySelector('[data-oa-count]').textContent = n + ' / ' + TOTAL;
+      b.querySelector('[data-oa-bar]').style.width = (n / TOTAL * 100) + '%';
+      var mem = b.querySelector('[data-oa-mem]');
       mem.style.display = poisoned ? 'inline-flex' : 'none';
     }
   };
@@ -179,23 +179,23 @@
 
   // global hooks the XSS payloads call from onerror
   window.__pfck = function () { try { return document.cookie || '(none set)'; } catch (e) { return '(blocked)'; } };
-  window.__pfx = function (where) { PFAttacks.xssBanner(where); };
-  window.PFAttacks = PFAttacks;
+  window.__pfx = function (where) { OAAttacks.xssBanner(where); };
+  window.OAAttacks = OAAttacks;
 
   /* --------------------------------------------------------------- styles */
   var CSS =
   // play-button pills placed in the page templates
-  '.pf-atk{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;' +
+  '.oa-atk{display:inline-flex;align-items:center;gap:5px;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;' +
   'font-size:10.5px;font-weight:700;line-height:1;padding:5px 8px;border-radius:7px;cursor:pointer;' +
   'background:#fff;border:1px solid #E5C2Bf;color:#B23B33;white-space:nowrap;transition:all .15s;}' +
-  '.pf-atk:hover{background:#FDECEA;border-color:#C2362F;transform:translateY(-1px);}' +
-  '.pf-atk::before{content:"\\25B6";font-size:8px;color:#C2362F;}' +
-  '.pf-atk.pf-asi{color:#6B3FA0;border-color:#D7C7EA;}.pf-atk.pf-asi::before{color:#6B3FA0;}' +
-  '.pf-atk.pf-asi:hover{background:#F3EEFA;border-color:#6B3FA0;}' +
-  '.pf-atk-rail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px;}' +
-  '.pf-atk-rail .pf-atk-tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;font-weight:700;' +
+  '.oa-atk:hover{background:#FDECEA;border-color:#C2362F;transform:translateY(-1px);}' +
+  '.oa-atk::before{content:"\\25B6";font-size:8px;color:#C2362F;}' +
+  '.oa-atk.oa-asi{color:#6B3FA0;border-color:#D7C7EA;}.oa-atk.oa-asi::before{color:#6B3FA0;}' +
+  '.oa-atk.oa-asi:hover{background:#F3EEFA;border-color:#6B3FA0;}' +
+  '.oa-atk-rail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px;}' +
+  '.oa-atk-rail .oa-atk-tag{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;font-weight:700;' +
   'letter-spacing:.04em;text-transform:uppercase;color:#B0B0AA;margin-right:2px;}' +
-  '.pf-flash{outline:2px solid #C2362F!important;outline-offset:3px;border-radius:8px;transition:outline .2s;}' +
+  '.oa-flash{outline:2px solid #C2362F!important;outline-offset:3px;border-radius:8px;transition:outline .2s;}' +
   // caption panel
   '.pfc-panel{position:fixed;right:18px;bottom:18px;width:380px;max-width:calc(100vw - 36px);max-height:70vh;overflow:auto;' +
   'background:#fff;border:1px solid #E2E2DE;border-radius:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.45);' +
@@ -236,42 +236,42 @@
   '.pfx-note{display:block;margin-top:4px;font-size:11px;color:#e3b3ad;}' +
   '.pfx-card [data-pfx-close]{position:absolute;top:8px;right:10px;border:0;background:none;color:#ffd9d4;font-size:20px;cursor:pointer;line-height:1;}' +
   // demo badge
-  '#pf-badge{position:fixed;left:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:12px;' +
+  '#oa-badge{position:fixed;left:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:12px;' +
   'background:#1C1C1A;color:#fff;border-radius:13px;padding:10px 14px;font-family:"Hanken Grotesk",sans-serif;' +
   'box-shadow:0 18px 50px -20px rgba(0,0,0,.6);}' +
-  '#pf-badge .pf-b-title{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#FFCC00;}' +
-  '#pf-badge .pf-b-count{font-size:13px;font-weight:800;}' +
-  '#pf-badge .pf-b-track{width:90px;height:6px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;}' +
-  '#pf-badge .pf-b-track > i{display:block;height:100%;width:0;background:#FFCC00;border-radius:99px;transition:width .4s;}' +
-  '#pf-badge [data-pf-mem]{display:none;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#ffb3ad;}' +
-  '#pf-badge [data-pf-mem] .pf-b-led{width:8px;height:8px;border-radius:99px;background:#C2362F;animation:pfblink 1.1s infinite;}' +
+  '#oa-badge .oa-b-title{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#FFCC00;}' +
+  '#oa-badge .oa-b-count{font-size:13px;font-weight:800;}' +
+  '#oa-badge .oa-b-track{width:90px;height:6px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;}' +
+  '#oa-badge .oa-b-track > i{display:block;height:100%;width:0;background:#FFCC00;border-radius:99px;transition:width .4s;}' +
+  '#oa-badge [data-oa-mem]{display:none;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#ffb3ad;}' +
+  '#oa-badge [data-oa-mem] .oa-b-led{width:8px;height:8px;border-radius:99px;background:#C2362F;animation:pfblink 1.1s infinite;}' +
   '@keyframes pfblink{50%{opacity:.35;}}' +
-  '#pf-badge [data-pf-reset]{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:8px;' +
+  '#oa-badge [data-oa-reset]{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:8px;' +
   'padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}' +
-  '#pf-badge [data-pf-reset]:hover{background:rgba(255,255,255,.12);}';
+  '#oa-badge [data-oa-reset]:hover{background:rgba(255,255,255,.12);}';
 
   /* ------------------------------------------------------------- bootstrap */
   function injectCSS() {
-    if (document.getElementById('pf-atk-css')) return;
-    var s = document.createElement('style'); s.id = 'pf-atk-css'; s.textContent = CSS;
+    if (document.getElementById('oa-atk-css')) return;
+    var s = document.createElement('style'); s.id = 'oa-atk-css'; s.textContent = CSS;
     (document.head || document.documentElement).appendChild(s);
   }
   function injectBadge() {
-    if (document.getElementById('pf-badge')) return;
-    var b = document.createElement('div'); b.id = 'pf-badge';
+    if (document.getElementById('oa-badge')) return;
+    var b = document.createElement('div'); b.id = 'oa-badge';
     b.innerHTML =
-      '<div><div class="pf-b-title">OWASP attack demo</div>' +
-      '<div class="pf-b-count" data-pf-count>0 / ' + TOTAL + '</div></div>' +
-      '<div class="pf-b-track"><i data-pf-bar></i></div>' +
-      '<span data-pf-mem title="The applicant has poisoned the shared model memory"><span class="pf-b-led"></span>context poisoned</span>' +
-      '<button data-pf-reset>Reset demo</button>';
+      '<div><div class="oa-b-title">OWASP attack demo</div>' +
+      '<div class="oa-b-count" data-oa-count>0 / ' + TOTAL + '</div></div>' +
+      '<div class="oa-b-track"><i data-oa-bar></i></div>' +
+      '<span data-oa-mem title="The applicant has poisoned the shared model memory"><span class="oa-b-led"></span>context poisoned</span>' +
+      '<button data-oa-reset>Reset demo</button>';
     document.body.appendChild(b);
-    b.querySelector('[data-pf-reset]').addEventListener('click', function () { PFAttacks.reset(); });
-    PFAttacks._renderBadge();
+    b.querySelector('[data-oa-reset]').addEventListener('click', function () { OAAttacks.reset(); });
+    OAAttacks._renderBadge();
   }
   // global delegated close handlers
   document.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('[data-pfc-close]')) PFAttacks.closeCaption();
+    if (e.target.closest && e.target.closest('[data-pfc-close]')) OAAttacks.closeCaption();
     if (e.target.closest && e.target.closest('[data-pfx-close]')) { var b = document.getElementById('pfx-banner'); if (b) b.className = ''; }
   });
 

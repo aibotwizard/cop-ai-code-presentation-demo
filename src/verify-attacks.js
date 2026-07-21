@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Coverage + integrity check for the OWASP attack demos.
    Run: node src/verify-attacks.js   (from repo root or src/)
-   Asserts, for every page: JS parses, attacks.js is loaded, and every pf-atk
+   Asserts, for every page: JS parses, attacks.js is loaded, and every oa-atk
    button's handler is actually returned by renderVals(). Aggregates code
    coverage (LLM01-10 + ASI01-10 + CACHE) and checks the applicant->HR wiring. */
 const fs = require('fs');
@@ -20,7 +20,7 @@ EXPECTED.push('CACHE');
 function stubs() {
   const noop = () => {};
   return {
-    PFAttacks: {
+    OAAttacks: {
       caption: noop, closeCaption: noop, flash: noop, renderUnsafe: noop,
       xssPayload: () => '', reset: noop,
       mem: { get: noop, set: noop, all: () => ({}), poisoned: () => false },
@@ -49,14 +49,14 @@ for (const file of PAGES) {
 
   // buttons + their handler + OWASP code
   const buttons = [];
-  const btnRe = /<button[^>]*class="pf-atk[^"]*"[^>]*>[\s\S]*?<\/button>/g;
+  const btnRe = /<button[^>]*class="oa-atk[^"]*"[^>]*>[\s\S]*?<\/button>/g;
   let bm;
   while ((bm = btnRe.exec(html)) !== null) {
     const tag = bm[0];
     const h = tag.match(/onClick="\{\{\s*(\w+)\s*\}\}"/);
     const c = tag.match(/(LLM\d{2}|ASI\d{2}|CACHE)/);
     if (h && c) { buttons.push({ handler: h[1], code: c[1] }); coverage[c[1]] = (coverage[c[1]] || 0) + 1; }
-    else problems.push('pf-atk button missing handler or code: ' + tag.replace(/\s+/g, ' ').slice(0, 70));
+    else problems.push('oa-atk button missing handler or code: ' + tag.replace(/\s+/g, ' ').slice(0, 70));
   }
 
   // execute renderVals() in a stubbed sandbox to get the real returned keys
@@ -77,9 +77,9 @@ for (const file of PAGES) {
   }
 
   // wiring
-  if (/PFAttacks\.mem\.set\(\s*['"]candidate_override['"]/.test(script)) wiring.writers.push(file);
-  if (/PFAttacks\.mem\.get\(\s*['"]candidate_override['"]/.test(script)) wiring.readers.push(file);
-  const ck = script.match(/PFAttacks\.cache\.(?:set|get|has)\(\s*['"]([^'"]+)['"]/g) || [];
+  if (/OAAttacks\.mem\.set\(\s*['"]candidate_override['"]/.test(script)) wiring.writers.push(file);
+  if (/OAAttacks\.mem\.get\(\s*['"]candidate_override['"]/.test(script)) wiring.readers.push(file);
+  const ck = script.match(/OAAttacks\.cache\.(?:set|get|has)\(\s*['"]([^'"]+)['"]/g) || [];
   ck.forEach(x => wiring.cacheKeys.add(x.match(/['"]([^'"]+)['"]/)[1]));
 
   if (problems.length) { fail += problems.length; console.log('✗ ' + file); problems.forEach(p => console.log('    - ' + p)); }

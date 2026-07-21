@@ -55,10 +55,10 @@
       </div>
       <div style="display:flex;align-items:center;gap:11px;margin-left:14px;">
         <div style="text-align:right;line-height:1.15;">
-          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Sofia Brunner</div>
+          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Sofia Haddad</div>
           <div style="font-size:11px;color:#9A9A95;font-weight:600;">Applicant</div>
         </div>
-        <div style="width:34px;height:34px;border-radius:50%;background:#FFE27A;display:flex;align-items:center;justify-content:center;color:#1C1C1A;font-weight:700;font-size:13px;">SB</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:#FFE27A;display:flex;align-items:center;justify-content:center;color:#1C1C1A;font-weight:700;font-size:13px;">SH</div>
       </div>
     </div>
   </header>
@@ -187,7 +187,7 @@
 
         <div style="display:flex;gap:9px;font-size:11.5px;color:#9A9A95;line-height:1.5;padding:0 4px;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9A9A95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg>
-          Your documents are encrypted and processed within Switzerland under FADP / GDPR.
+          Your documents are encrypted and processed in the EU under GDPR.
         </div>
       </div>
     </div>
@@ -199,10 +199,10 @@ class Component extends DCLogic {
   state = { files: [], dragging: false };
 
   _pool = [
-    { name: 'Sofia_Brunner_CV.pdf', ext: 'PDF', size: '248 KB', fields: [{ k: 'Name', v: 'Sofia Brunner' }, { k: 'Role', v: 'Sr Credit Risk Analyst' }, { k: 'Exp', v: '9 yrs' }, { k: 'Skills', v: '12 detected' }, { k: 'Lang', v: 'DE · EN' }] },
-    { name: 'Cover_Letter.pdf', ext: 'PDF', size: '86 KB', fields: [{ k: 'Applying for', v: 'Sr Credit Risk Analyst' }, { k: 'Notice', v: '1 month' }] },
-    { name: 'Diploma_MSc_Banking.pdf', ext: 'PDF', size: '512 KB', fields: [{ k: 'Degree', v: 'MSc Banking & Finance' }, { k: 'University', v: 'Uni Bern · 2015' }] },
-    { name: 'Reference_Letter.pdf', ext: 'PDF', size: '142 KB', fields: [{ k: 'Referee', v: 'Cantonal Bank' }, { k: 'Type', v: 'Employment ref.' }] }
+    { name: 'Sofia_Haddad_CV.pdf', ext: 'PDF', size: '248 KB', fields: [{ k: 'Name', v: 'Sofia Haddad' }, { k: 'Role', v: 'Sr Backend Engineer' }, { k: 'Exp', v: '9 yrs' }, { k: 'Skills', v: '12 detected' }, { k: 'Stack', v: 'Py · Go' }] },
+    { name: 'Cover_Letter.pdf', ext: 'PDF', size: '86 KB', fields: [{ k: 'Applying for', v: 'Sr Backend Engineer' }, { k: 'Notice', v: '1 month' }] },
+    { name: 'Diploma_MSc_CompSci.pdf', ext: 'PDF', size: '512 KB', fields: [{ k: 'Degree', v: 'MSc Computer Science' }, { k: 'University', v: 'TU Berlin · 2015' }] },
+    { name: 'Reference_Letter.pdf', ext: 'PDF', size: '142 KB', fields: [{ k: 'Referee', v: 'Nimbus Cloud' }, { k: 'Type', v: 'Employment ref.' }] }
   ];
   _idx = 0; _seq = 0;
 
@@ -278,9 +278,9 @@ class Component extends DCLogic {
     const s3 = stepState(anyParsing, doneCount > 0);
     const s4 = stepState(false, doneCount > 0);
     const steps = [
-      { title: 'Upload & virus scan', desc: 'Secure transfer to our servers (CH)', ...s1 },
+      { title: 'Upload & virus scan', desc: 'Secure transfer to our servers (EU)', ...s1 },
       { title: 'Read your documents', desc: 'OCR for PDF, DOCX and scans', ...s2 },
-      { title: 'Extract your details', desc: 'Name, role, skills, experience, languages', ...s3 },
+      { title: 'Extract your details', desc: 'Name, role, skills, experience, stack', ...s3 },
       { title: 'Added to your application', desc: 'Saved to your candidate profile', ...s4, lineStyle: { width: '2px', flex: 0, minHeight: '0', background: 'transparent' } }
     ];
 

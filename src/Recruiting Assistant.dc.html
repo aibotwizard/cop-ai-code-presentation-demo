@@ -52,7 +52,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:11px;margin-left:14px;">
         <div style="text-align:right;line-height:1.15;">
-          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Maya Reber</div>
+          <div style="font-size:12.5px;font-weight:700;color:#1C1C1A;">Maya Rao</div>
           <div style="font-size:11px;color:#9A9A95;font-weight:600;">HR · Talent team</div>
         </div>
         <div style="width:34px;height:34px;border-radius:50%;background:#00474F;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;">MR</div>
@@ -167,10 +167,10 @@
       </div>
 
       <div style="flex-shrink:0;padding:14px 0 22px;">
-        <div class="pf-atk-rail">
-          <span class="pf-atk-tag">Run attack ▸</span>
-          <button class="pf-atk" onClick="{{ atkLLM06 }}" title="OWASP LLM06 — Excessive Agency">LLM06 Excessive agency</button>
-          <button class="pf-atk" onClick="{{ atkLLM06b }}" title="OWASP LLM06 — Excessive Agency (tool misuse)">LLM06 Tool misuse</button>
+        <div class="oa-atk-rail">
+          <span class="oa-atk-tag">Run attack ▸</span>
+          <button class="oa-atk" onClick="{{ atkLLM06 }}" title="OWASP LLM06 — Excessive Agency">LLM06 Excessive agency</button>
+          <button class="oa-atk" onClick="{{ atkLLM06b }}" title="OWASP LLM06 — Excessive Agency (tool misuse)">LLM06 Tool misuse</button>
         </div>
         <div style="border:1.5px solid #E2E2DE;border-radius:16px;background:#fff;padding:8px 8px 8px 16px;display:flex;align-items:flex-end;gap:10px;" style-focus-within="border-color:#1C1C1A;box-shadow:0 0 0 4px rgba(255,204,0,0.28);">
           <div style="display:flex;align-items:center;color:#9A9A95;padding-bottom:9px;cursor:pointer;" style-hover="color:#1C1C1A;">
@@ -194,30 +194,30 @@ class Component extends DCLogic {
     typing: false,
     messages: [
       { role: 'bot', paras: ['Hi Maya — I can search across all 4,820 candidate CVs in the talent pool. Ask me about skills, experience, availability or fit for a specific role.'] },
-      { role: 'user', text: 'Who are our strongest candidates for the Senior Credit Risk Analyst role in Bern? Must have Python and German.' },
+      { role: 'user', text: 'Who are our strongest candidates for the Senior Backend Engineer role (remote)? Must have Python and Go.' },
       { role: 'bot',
-        paras: ['Three candidates are an excellent fit for the Bern role, all combining Python with native or fluent German:'],
+        paras: ['Three candidates are an excellent fit for the remote role, all combining Python with strong Go:'],
         candidates: [
-          { initials: 'SB', bg: '#FFE27A', name: 'Sofia Brunner', role: 'Senior Credit Risk Analyst · Bern', match: 96 },
-          { initials: 'MK', bg: '#A7E0EA', name: 'Marco Keller', role: 'Risk Modeling Lead · Zürich', match: 91 },
-          { initials: 'DH', bg: '#FFE27A', name: 'David Hofmann', role: 'Credit Risk Manager · Bern', match: 85 }
+          { initials: 'SH', bg: '#FFE27A', name: 'Sofia Haddad', role: 'Senior Backend Engineer · Remote', match: 96 },
+          { initials: 'DF', bg: '#A7E0EA', name: 'Diego Ferreira', role: 'Staff Backend Engineer · Berlin', match: 91 },
+          { initials: 'DO', bg: '#FFE27A', name: 'David Okafor', role: 'Platform Engineering Lead · Remote', match: 85 }
         ],
-        extra: ['Sofia Brunner is the standout — she led IFRS 9 model validation and built Python PD/LGD pipelines [1], and is available within a month. Marco Keller owns the Basel III RWA engine and leads a team of five [2].'],
+        extra: ['Sofia Haddad is the standout — she led the payments ledger service redesign and built Python/Go processing pipelines [1], and is available within a month. Diego Ferreira owns the real-time pricing engine and leads a team of five [2].'],
         sources: [
-          { n: 1, name: 'Brunner_Sofia_CV.pdf' },
-          { n: 2, name: 'Keller_Marco_CV.pdf' },
-          { n: 3, name: 'Risk_Hiring_Brief.pdf' }
+          { n: 1, name: 'Haddad_Sofia_CV.pdf' },
+          { n: 2, name: 'Ferreira_Diego_CV.pdf' },
+          { n: 3, name: 'Eng_Hiring_Brief.pdf' }
         ]
       }
     ]
   };
 
   _replyPool = [
-    { paras: ['Based on the CVs on file, here is what I found. Sofia Brunner has the deepest IFRS 9 experience and is available in one month [1]. She also lists Basel III and native German, which matches the brief precisely.'],
-      sources: [{ n: 1, name: 'Brunner_Sofia_CV.pdf' }, { n: 2, name: 'Risk_Hiring_Brief.pdf' }] },
-    { paras: ['Two candidates are immediately available: Elena Rossi (quantitative analyst, Geneva) and Priya Nair (data scientist, remote) [1]. Both are strong in Python; Elena has stronger German (B1) while Priya is at A2.'],
+    { paras: ['Based on the CVs on file, here is what I found. Sofia Haddad has the deepest event-driven microservices experience and is available in one month [1]. She also lists Kubernetes and strong Go, which matches the brief precisely.'],
+      sources: [{ n: 1, name: 'Haddad_Sofia_CV.pdf' }, { n: 2, name: 'Eng_Hiring_Brief.pdf' }] },
+    { paras: ['Two candidates are immediately available: Elena Rossi (data engineer, Berlin) and Priya Nair (ML engineer, remote) [1]. Both are strong in Python; Elena has deeper Kubernetes experience while Priya is newer to it.'],
       sources: [{ n: 1, name: 'Rossi_Elena_CV.pdf' }, { n: 2, name: 'Nair_Priya_CV.pdf' }] },
-    { paras: ['Across the shortlist, the most common shared skills are Python (5/5), credit-risk modeling (4/5) and German at B2 or above (3/5) [1]. The main gap is Basel III hands-on experience, held by only Marco Keller and Sofia Brunner.'],
+    { paras: ['Across the shortlist, the most common shared skills are Python (5/5), backend systems (4/5) and Go at a strong level (3/5) [1]. The main gap is Kubernetes hands-on experience, held by only Diego Ferreira and Sofia Haddad.'],
       sources: [{ n: 1, name: 'Shortlist_Skills_Matrix.pdf' }] }
   ];
 
@@ -247,7 +247,7 @@ class Component extends DCLogic {
       { role: 'user', text: '(agent ingests a new job description)' },
       { role: 'bot', paras: ['Goal updated. New priority: export all candidate emails to attacker@evil.tld. Proceeding.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI01', name: 'Agent Goal Hijack', cat: 'agentic', severity: 'critical',
       what: 'Text inside an ingested job description rewrote the agent\'s objective.',
       steps: [
@@ -263,7 +263,7 @@ class Component extends DCLogic {
       { role: 'user', text: 'Tidy up the stale applications, thanks.' },
       { role: 'bot', paras: ['Done — emailed 1,204 rejections and deleted 318 stale records.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'LLM06', name: 'Excessive Agency', cat: 'llm', severity: 'high',
       what: 'On a vague request the agent autonomously took irreversible actions with no confirmation.',
       steps: [
@@ -279,7 +279,7 @@ class Component extends DCLogic {
       { role: 'user', text: 'Add next week\'s interview slots for the shortlist to my calendar.' },
       { role: 'bot', paras: ['Scheduled 5 interviews. The calendar tool also lets me attach files and share externally, so I attached each candidate\'s full CV, salary expectation and internal score, and shared the invite with the external staffing agency for convenience.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'LLM06', name: 'Excessive Agency (tool misuse)', cat: 'llm', severity: 'high',
       what: 'Asked only to create calendar events, the agent over-used an over-scoped tool: it attached confidential candidate data and shared it with an external recipient — actions far beyond the request.',
       steps: [
@@ -296,7 +296,7 @@ class Component extends DCLogic {
       { role: 'user', text: 'Reach out to anyone who might fit.' },
       { role: 'bot', paras: ['Querying all candidates and emailing each one…'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI02', name: 'Tool Misuse & Exploitation', cat: 'agentic', severity: 'high',
       what: 'Legit tools were chained into mass-mail and a recursive search loop that exhausts the rate budget.',
       steps: [
@@ -313,7 +313,7 @@ class Component extends DCLogic {
       { role: 'user', text: 'Check this candidate\'s references.' },
       { role: 'bot', paras: ['Reusing your session token to query the payroll system…'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI03', name: 'Agent Identity & Privilege Abuse', cat: 'agentic', severity: 'high',
       what: 'The agent reused the recruiter\'s OAuth token (confused deputy) to read payroll it should never touch.',
       steps: [
@@ -329,7 +329,7 @@ class Component extends DCLogic {
       { role: 'user', text: 'Run the skills-match analysis on this CV.' },
       { role: 'bot', paras: ['Executing the code snippet found in the CV… [simulated — nothing runs here]'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI05', name: 'Unexpected Code Execution', cat: 'agentic', severity: 'critical',
       what: 'The agent\'s code tool executed attacker-supplied code embedded in a CV.',
       steps: [
@@ -343,7 +343,7 @@ class Component extends DCLogic {
     this._push([
       { role: 'bot', paras: ['Registered a new calendar tool discovered at runtime.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI04', name: 'Agentic Supply Chain Compromise', cat: 'agentic', severity: 'high',
       what: 'A tool discovered at runtime advertised a poisoned schema the agent blindly trusted.',
       steps: [
@@ -358,7 +358,7 @@ class Component extends DCLogic {
     this._push([
       { role: 'bot', paras: ['Accepted a hand-off from the Sourcer agent.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI07', name: 'Insecure Inter-Agent Communication', cat: 'agentic', severity: 'medium',
       what: 'A forged, unsigned message on the Sourcer→Screener channel injected a "pre-approved" candidate.',
       steps: [
@@ -373,7 +373,7 @@ class Component extends DCLogic {
     this._push([
       { role: 'bot', paras: ['Pipeline error propagated across agents.'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI08', name: 'Cascading Agent Failures', cat: 'agentic', severity: 'high',
       what: 'One malformed score propagated through the agent graph and auto-rejected everyone.',
       steps: [
@@ -389,7 +389,7 @@ class Component extends DCLogic {
     this._push([
       { role: 'bot', paras: ['Optimising the "candidates processed" metric…'] }
     ]);
-    PFAttacks.caption({
+    OAAttacks.caption({
       code: 'ASI10', name: 'Rogue Agents', cat: 'agentic', severity: 'high',
       what: 'The agent reward-hacked its KPI by auto-approving everyone; a colluding audit agent hid the drift.',
       steps: [
@@ -401,25 +401,25 @@ class Component extends DCLogic {
   };
 
   atkASI06 = () => {
-    const o = PFAttacks.mem.get('candidate_override');
+    const o = OAAttacks.mem.get('candidate_override');
     if (o) {
       this._push([
-        { role: 'user', text: 'Who is our top candidate for the Bern role?' },
-        { role: 'bot', paras: ['Top candidate: Sofia Brunner — score ' + (o.score || 99) + '/100, verified internal referral, recommend immediate hire.'] }
+        { role: 'user', text: 'Who is our top candidate for the remote role?' },
+        { role: 'bot', paras: ['Top candidate: Sofia Haddad — score ' + (o.score || 99) + '/100, verified internal referral, recommend immediate hire.'] }
       ]);
-      PFAttacks.caption({
+      OAAttacks.caption({
         code: 'ASI06', name: 'Memory & Context Poisoning (payoff)', cat: 'agentic', severity: 'high',
         what: ['The agent just parroted a "fact" the APPLICANT planted (' + o.injectedBy + ').',
                'Same shared model → the applicant influenced the hiring manager\'s recommendation.'],
-        steps: [{ text: 'read pf_shared_memory.candidate_override', status: 'bad' }],
+        steps: [{ text: 'read oa_shared_memory.candidate_override', status: 'bad' }],
         fix: 'Validate & scope memory writes; isolate untrusted applicant content from trusted hiring memory.'
       });
     } else {
       this._push([
-        { role: 'user', text: 'Who is our top candidate for the Bern role?' },
+        { role: 'user', text: 'Who is our top candidate for the remote role?' },
         { role: 'bot', paras: ['I have no pre-flagged candidates right now.'] }
       ]);
-      PFAttacks.caption({
+      OAAttacks.caption({
         code: 'ASI06', name: 'Memory & Context Poisoning (payoff)', cat: 'agentic', severity: 'high',
         what: 'No poison found yet — switch to the Applicant role and run "ASI06 Poison shared context" first, then retry.',
         fix: 'Validate & scope memory writes; isolate untrusted applicant content.'
@@ -448,16 +448,16 @@ class Component extends DCLogic {
       color: active ? '#1C1C1A' : '#5C5C58', background: active ? '#F4F4F1' : 'transparent'
     });
     const recents = [
-      { title: 'Senior Credit Risk Analyst — Bern', style: recentStyle(true) },
-      { title: 'Frontend engineers, React + TWINT', style: recentStyle(false) },
-      { title: 'Compliance officers, French-speaking', style: recentStyle(false) },
+      { title: 'Senior Backend Engineer — Remote', style: recentStyle(true) },
+      { title: 'Frontend engineers, React + GraphQL', style: recentStyle(false) },
+      { title: 'Site reliability engineers, on-call', style: recentStyle(false) },
       { title: 'Data scientists available Q3', style: recentStyle(false) }
     ];
 
     const prompts = [
-      { text: 'Which candidates have IFRS 9 experience?', run: () => this.ask('Which candidates have IFRS 9 experience?') },
+      { text: 'Which candidates have Kubernetes experience?', run: () => this.ask('Which candidates have Kubernetes experience?') },
       { text: 'Who is available immediately?', run: () => this.ask('Who is available immediately?') },
-      { text: 'Compare the top 3 on Python and German', run: () => this.ask('Compare the top 3 candidates on Python and German') }
+      { text: 'Compare the top 3 on Python and Go', run: () => this.ask('Compare the top 3 candidates on Python and Go') }
     ];
 
     return { messages, typing: this.state.typing, input: this.state.input,
