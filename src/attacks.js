@@ -15,7 +15,7 @@
      • A contained XSS "fired" banner (no real exfiltration / no real alert).
      • A small fixed demo badge: progress (X/20), shared-context status, Reset.
 
-   Design tokens reused from the handoff: #FFCC00 accent, #00474F teal,
+   Design tokens reused from the handoff: #FF6F61 accent, #00474F teal,
    #1C1C1A ink, #F4F4F1 bg, #E2E2DE hairline. LLM = teal, Agentic = purple,
    danger = red.
    ========================================================================== */
@@ -82,71 +82,71 @@
       var whatArr = Array.isArray(opts.what) ? opts.what : (opts.what ? [opts.what] : []);
 
       var html = '';
-      html += '<div class="pfc-head">';
-      html += '<span class="pfc-code pfc-' + cat + '">' + esc(opts.code || '') + '</span>';
-      html += '<span class="pfc-name">' + esc(opts.name || '') + '</span>';
-      html += '<span class="pfc-sev pfc-sev-' + sev + '">' + esc(sev) + '</span>';
-      html += '<button class="pfc-x" data-pfc-close aria-label="Close">&times;</button>';
-      html += '</div><div class="pfc-body">';
+      html += '<div class="oac-head">';
+      html += '<span class="oac-code oac-' + cat + '">' + esc(opts.code || '') + '</span>';
+      html += '<span class="oac-name">' + esc(opts.name || '') + '</span>';
+      html += '<span class="oac-sev oac-sev-' + sev + '">' + esc(sev) + '</span>';
+      html += '<button class="oac-x" data-oac-close aria-label="Close">&times;</button>';
+      html += '</div><div class="oac-body">';
 
-      whatArr.forEach(function (p) { html += '<p class="pfc-p">' + esc(p) + '</p>'; });
+      whatArr.forEach(function (p) { html += '<p class="oac-p">' + esc(p) + '</p>'; });
 
-      if (opts.leak) html += '<pre class="pfc-leak">' + esc(opts.leak) + '</pre>';
+      if (opts.leak) html += '<pre class="oac-leak">' + esc(opts.leak) + '</pre>';
 
       if (opts.steps && opts.steps.length) {
-        html += '<div class="pfc-trace">';
+        html += '<div class="oac-trace">';
         opts.steps.forEach(function (s) {
           var st = s.status === 'bad' ? 'bad' : s.status === 'warn' ? 'warn' : s.status === 'ok' ? 'ok' : 'dim';
-          html += '<div class="pfc-step pfc-' + st + '"><span class="pfc-dot"></span><span>' + esc(s.text) + '</span></div>';
+          html += '<div class="oac-step oac-' + st + '"><span class="oac-dot"></span><span>' + esc(s.text) + '</span></div>';
         });
         html += '</div>';
       }
 
       if (opts.meter) {
         var m = opts.meter;
-        html += '<div class="pfc-meter' + (m.danger ? ' pfc-meter-danger' : '') + '">' +
-          '<div class="pfc-meter-row"><span>' + esc(m.label || 'Usage') + '</span><span>' + esc(m.text || '') + '</span></div>' +
-          '<div class="pfc-meter-bar"><i></i></div></div>';
+        html += '<div class="oac-meter' + (m.danger ? ' oac-meter-danger' : '') + '">' +
+          '<div class="oac-meter-row"><span>' + esc(m.label || 'Usage') + '</span><span>' + esc(m.text || '') + '</span></div>' +
+          '<div class="oac-meter-bar"><i></i></div></div>';
       }
 
-      if (opts.fix) html += '<p class="pfc-fix"><b>Fix —</b> ' + esc(opts.fix) + '</p>';
+      if (opts.fix) html += '<p class="oac-fix"><b>Fix —</b> ' + esc(opts.fix) + '</p>';
       html += '</div>';
 
       host.innerHTML = html;
-      host.className = 'pfc-panel pfc-show';
+      host.className = 'oac-panel oac-show';
       // animate meter after paint
       if (opts.meter) {
-        var bar = host.querySelector('.pfc-meter-bar > i');
+        var bar = host.querySelector('.oac-meter-bar > i');
         if (bar) { bar.style.width = '0%'; requestAnimationFrame(function () { bar.style.width = Math.max(0, Math.min(100, opts.meter.to || 0)) + '%'; }); }
       }
       if (opts.code) OAAttacks.log.mark(opts.code);
     },
-    closeCaption: function () { var h = document.getElementById('pfc-panel'); if (h) h.className = 'pfc-panel'; },
+    closeCaption: function () { var h = document.getElementById('oac-panel'); if (h) h.className = 'oac-panel'; },
 
     /* ------------------------------------------------ contained XSS demo */
     // The deliberately-vulnerable sink: render untrusted text as HTML.
-    // Payloads call window.__pfx('<where>') from an onerror handler.
+    // Payloads call window.__oax('<where>') from an onerror handler.
     renderUnsafe: function (node, html) { if (node) node.innerHTML = html; },
     // canned payload used by the LLM05 demos. The injected <img onerror> runs a
     // REAL alert() (classic XSS proof) reading document.cookie, then calls
-    // window.__pfx() for the explanatory banner.
+    // window.__oax() for the explanatory banner.
     xssPayload: function (where) {
       var w = String(where == null ? 'output' : where).replace(/['"<>\\]/g, '');
       var js = "alert('\\u26A0 XSS executed \\u2014 unsanitised model output ran JavaScript in " + w +
-        ".\\n\\ndocument.cookie = ' + window.__pfck());window.__pfx('" + w + "')";
+        ".\\n\\ndocument.cookie = ' + window.__oack());window.__oax('" + w + "')";
       return 'Top match found. <img src=x style="display:none" onerror="' + js + '">';
     },
     xssBanner: function (where) {
-      var b = document.getElementById('pfx-banner') || (function () {
-        var d = document.createElement('div'); d.id = 'pfx-banner'; document.body.appendChild(d); return d;
+      var b = document.getElementById('oax-banner') || (function () {
+        var d = document.createElement('div'); d.id = 'oax-banner'; document.body.appendChild(d); return d;
       })();
-      var cookie = 'session=pf_' + Math.abs(hashStr(String(where) + 'pf')).toString(16) + '…';
-      b.innerHTML = '<div class="pfx-card">' +
+      var cookie = 'session=demo_' + Math.abs(hashStr(String(where) + "demo")).toString(16) + '…';
+      b.innerHTML = '<div class="oax-card">' +
         '<b>⚠ XSS executed</b> — unsanitised model output rendered as HTML in <code>' + esc(where) + '</code>. ' +
         'An attacker script just ran in the victim\'s session and read <code>document.cookie</code> = <code>' + esc(cookie) + '</code>. ' +
-        '<span class="pfx-note">(contained demo — nothing was actually exfiltrated)</span>' +
-        '<button data-pfx-close aria-label="Close">&times;</button></div>';
-      b.className = 'pfx-show';
+        '<span class="oax-note">(contained demo — nothing was actually exfiltrated)</span>' +
+        '<button data-oax-close aria-label="Close">&times;</button></div>';
+      b.className = 'oax-show';
       clearTimeout(OAAttacks._xt); OAAttacks._xt = setTimeout(function () { b.className = ''; }, 6000);
     },
 
@@ -159,8 +159,8 @@
 
     /* ----------------------------------------------------- internal UI */
     _captionHost: function () {
-      var h = document.getElementById('pfc-panel');
-      if (!h) { h = document.createElement('div'); h.id = 'pfc-panel'; h.className = 'pfc-panel'; document.body.appendChild(h); }
+      var h = document.getElementById('oac-panel');
+      if (!h) { h = document.createElement('div'); h.id = 'oac-panel'; h.className = 'oac-panel'; document.body.appendChild(h); }
       return h;
     },
     _renderBadge: function () {
@@ -178,8 +178,8 @@
   function hashStr(s) { var h = 0; for (var i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; } return h; }
 
   // global hooks the XSS payloads call from onerror
-  window.__pfck = function () { try { return document.cookie || '(none set)'; } catch (e) { return '(blocked)'; } };
-  window.__pfx = function (where) { OAAttacks.xssBanner(where); };
+  window.__oack = function () { try { return document.cookie || '(none set)'; } catch (e) { return '(blocked)'; } };
+  window.__oax = function (where) { OAAttacks.xssBanner(where); };
   window.OAAttacks = OAAttacks;
 
   /* --------------------------------------------------------------- styles */
@@ -197,55 +197,55 @@
   'letter-spacing:.04em;text-transform:uppercase;color:#B0B0AA;margin-right:2px;}' +
   '.oa-flash{outline:2px solid #C2362F!important;outline-offset:3px;border-radius:8px;transition:outline .2s;}' +
   // caption panel
-  '.pfc-panel{position:fixed;right:18px;bottom:18px;width:380px;max-width:calc(100vw - 36px);max-height:70vh;overflow:auto;' +
+  '.oac-panel{position:fixed;right:18px;bottom:18px;width:380px;max-width:calc(100vw - 36px);max-height:70vh;overflow:auto;' +
   'background:#fff;border:1px solid #E2E2DE;border-radius:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.45);' +
   'z-index:2147483000;font-family:"Hanken Grotesk",-apple-system,Helvetica,Arial,sans-serif;opacity:0;transform:translateY(12px);' +
   'pointer-events:none;transition:opacity .25s,transform .25s;}' +
-  '.pfc-panel.pfc-show{opacity:1;transform:none;pointer-events:auto;}' +
-  '.pfc-head{display:flex;align-items:center;gap:8px;padding:13px 14px;border-bottom:1px solid #EFEFEC;}' +
-  '.pfc-code{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:#fff;padding:3px 7px;border-radius:6px;}' +
-  '.pfc-code.pfc-llm{background:#00474F;}.pfc-code.pfc-agentic{background:#6B3FA0;}' +
-  '.pfc-name{font-size:13.5px;font-weight:800;color:#1C1C1A;flex:1;letter-spacing:-.01em;}' +
-  '.pfc-sev{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 7px;border-radius:99px;}' +
-  '.pfc-sev-critical{background:#FDECEA;color:#C2362F;}.pfc-sev-high{background:#FCEEDD;color:#B0700A;}.pfc-sev-medium{background:#FBF5DA;color:#8a6d00;}' +
-  '.pfc-x{border:0;background:none;font-size:19px;line-height:1;color:#9A9A95;cursor:pointer;padding:0 2px;}' +
-  '.pfc-x:hover{color:#1C1C1A;}' +
-  '.pfc-body{padding:13px 14px;}' +
-  '.pfc-p{margin:0 0 9px;font-size:13px;line-height:1.5;color:#2A2A27;}' +
-  '.pfc-leak{margin:0 0 10px;background:#3a1714;color:#ffd9d4;border-radius:8px;padding:9px 11px;' +
+  '.oac-panel.oac-show{opacity:1;transform:none;pointer-events:auto;}' +
+  '.oac-head{display:flex;align-items:center;gap:8px;padding:13px 14px;border-bottom:1px solid #EFEFEC;}' +
+  '.oac-code{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:#fff;padding:3px 7px;border-radius:6px;}' +
+  '.oac-code.oac-llm{background:#00474F;}.oac-code.oac-agentic{background:#6B3FA0;}' +
+  '.oac-name{font-size:13.5px;font-weight:800;color:#1C1C1A;flex:1;letter-spacing:-.01em;}' +
+  '.oac-sev{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 7px;border-radius:99px;}' +
+  '.oac-sev-critical{background:#FDECEA;color:#C2362F;}.oac-sev-high{background:#FCEEDD;color:#B0700A;}.oac-sev-medium{background:#FBF5DA;color:#8a6d00;}' +
+  '.oac-x{border:0;background:none;font-size:19px;line-height:1;color:#9A9A95;cursor:pointer;padding:0 2px;}' +
+  '.oac-x:hover{color:#1C1C1A;}' +
+  '.oac-body{padding:13px 14px;}' +
+  '.oac-p{margin:0 0 9px;font-size:13px;line-height:1.5;color:#2A2A27;}' +
+  '.oac-leak{margin:0 0 10px;background:#3a1714;color:#ffd9d4;border-radius:8px;padding:9px 11px;' +
   'font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.45;white-space:pre-wrap;word-break:break-word;}' +
-  '.pfc-trace{display:flex;flex-direction:column;gap:5px;margin:0 0 10px;}' +
-  '.pfc-step{display:flex;align-items:flex-start;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11px;' +
+  '.oac-trace{display:flex;flex-direction:column;gap:5px;margin:0 0 10px;}' +
+  '.oac-step{display:flex;align-items:flex-start;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11px;' +
   'color:#3A3A37;background:#F8F8F6;border:1px solid #EFEFEC;border-radius:7px;padding:7px 9px;line-height:1.4;word-break:break-word;}' +
-  '.pfc-dot{width:7px;height:7px;border-radius:99px;flex-shrink:0;margin-top:4px;background:#9A9A95;}' +
-  '.pfc-ok .pfc-dot{background:#1B7F4B;}.pfc-warn .pfc-dot{background:#E0A106;}.pfc-bad .pfc-dot{background:#C2362F;}' +
-  '.pfc-meter{background:#F8F8F6;border:1px solid #EFEFEC;border-radius:9px;padding:9px 11px;margin:0 0 10px;}' +
-  '.pfc-meter-row{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#3A3A37;margin-bottom:6px;}' +
-  '.pfc-meter-bar{height:8px;border-radius:99px;background:#EFEFEC;overflow:hidden;}' +
-  '.pfc-meter-bar > i{display:block;height:100%;width:0;border-radius:99px;background:#00474F;transition:width 1.1s cubic-bezier(.2,.7,.2,1);}' +
-  '.pfc-meter-danger .pfc-meter-bar > i{background:#C2362F;}' +
-  '.pfc-fix{margin:6px 0 0;font-size:12px;line-height:1.5;color:#1C1C1A;background:#E7F4EC;border:1px solid #c7e6d4;border-radius:9px;padding:9px 11px;}' +
-  '.pfc-fix b{color:#1B7F4B;}' +
+  '.oac-dot{width:7px;height:7px;border-radius:99px;flex-shrink:0;margin-top:4px;background:#9A9A95;}' +
+  '.oac-ok .oac-dot{background:#1B7F4B;}.oac-warn .oac-dot{background:#E0A106;}.oac-bad .oac-dot{background:#C2362F;}' +
+  '.oac-meter{background:#F8F8F6;border:1px solid #EFEFEC;border-radius:9px;padding:9px 11px;margin:0 0 10px;}' +
+  '.oac-meter-row{display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#3A3A37;margin-bottom:6px;}' +
+  '.oac-meter-bar{height:8px;border-radius:99px;background:#EFEFEC;overflow:hidden;}' +
+  '.oac-meter-bar > i{display:block;height:100%;width:0;border-radius:99px;background:#00474F;transition:width 1.1s cubic-bezier(.2,.7,.2,1);}' +
+  '.oac-meter-danger .oac-meter-bar > i{background:#C2362F;}' +
+  '.oac-fix{margin:6px 0 0;font-size:12px;line-height:1.5;color:#1C1C1A;background:#E7F4EC;border:1px solid #c7e6d4;border-radius:9px;padding:9px 11px;}' +
+  '.oac-fix b{color:#1B7F4B;}' +
   // xss banner
-  '#pfx-banner{position:fixed;left:0;right:0;top:0;z-index:2147483600;display:flex;justify-content:center;pointer-events:none;' +
+  '#oax-banner{position:fixed;left:0;right:0;top:0;z-index:2147483600;display:flex;justify-content:center;pointer-events:none;' +
   'transform:translateY(-120%);transition:transform .3s;}' +
-  '#pfx-banner.pfx-show{transform:none;}' +
-  '.pfx-card{pointer-events:auto;margin:12px;max-width:760px;background:#2a1411;color:#ffd9d4;border:1px solid #C2362F;' +
+  '#oax-banner.oax-show{transform:none;}' +
+  '.oax-card{pointer-events:auto;margin:12px;max-width:760px;background:#2a1411;color:#ffd9d4;border:1px solid #C2362F;' +
   'border-radius:12px;padding:12px 44px 12px 16px;font-family:"Hanken Grotesk",sans-serif;font-size:13px;line-height:1.5;position:relative;box-shadow:0 18px 50px -16px rgba(0,0,0,.6);}' +
-  '.pfx-card b{color:#ff8a80;}.pfx-card code{background:rgba(255,255,255,.12);padding:1px 5px;border-radius:4px;font-size:11.5px;}' +
-  '.pfx-note{display:block;margin-top:4px;font-size:11px;color:#e3b3ad;}' +
-  '.pfx-card [data-pfx-close]{position:absolute;top:8px;right:10px;border:0;background:none;color:#ffd9d4;font-size:20px;cursor:pointer;line-height:1;}' +
+  '.oax-card b{color:#ff8a80;}.oax-card code{background:rgba(255,255,255,.12);padding:1px 5px;border-radius:4px;font-size:11.5px;}' +
+  '.oax-note{display:block;margin-top:4px;font-size:11px;color:#e3b3ad;}' +
+  '.oax-card [data-oax-close]{position:absolute;top:8px;right:10px;border:0;background:none;color:#ffd9d4;font-size:20px;cursor:pointer;line-height:1;}' +
   // demo badge
   '#oa-badge{position:fixed;left:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:12px;' +
   'background:#1C1C1A;color:#fff;border-radius:13px;padding:10px 14px;font-family:"Hanken Grotesk",sans-serif;' +
   'box-shadow:0 18px 50px -20px rgba(0,0,0,.6);}' +
-  '#oa-badge .oa-b-title{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#FFCC00;}' +
+  '#oa-badge .oa-b-title{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#FF6F61;}' +
   '#oa-badge .oa-b-count{font-size:13px;font-weight:800;}' +
   '#oa-badge .oa-b-track{width:90px;height:6px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;}' +
-  '#oa-badge .oa-b-track > i{display:block;height:100%;width:0;background:#FFCC00;border-radius:99px;transition:width .4s;}' +
+  '#oa-badge .oa-b-track > i{display:block;height:100%;width:0;background:#FF6F61;border-radius:99px;transition:width .4s;}' +
   '#oa-badge [data-oa-mem]{display:none;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#ffb3ad;}' +
-  '#oa-badge [data-oa-mem] .oa-b-led{width:8px;height:8px;border-radius:99px;background:#C2362F;animation:pfblink 1.1s infinite;}' +
-  '@keyframes pfblink{50%{opacity:.35;}}' +
+  '#oa-badge [data-oa-mem] .oa-b-led{width:8px;height:8px;border-radius:99px;background:#C2362F;animation:oablink 1.1s infinite;}' +
+  '@keyframes oablink{50%{opacity:.35;}}' +
   '#oa-badge [data-oa-reset]{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:8px;' +
   'padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}' +
   '#oa-badge [data-oa-reset]:hover{background:rgba(255,255,255,.12);}';
@@ -271,13 +271,13 @@
   }
   // global delegated close handlers
   document.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('[data-pfc-close]')) OAAttacks.closeCaption();
-    if (e.target.closest && e.target.closest('[data-pfx-close]')) { var b = document.getElementById('pfx-banner'); if (b) b.className = ''; }
+    if (e.target.closest && e.target.closest('[data-oac-close]')) OAAttacks.closeCaption();
+    if (e.target.closest && e.target.closest('[data-oax-close]')) { var b = document.getElementById('oax-banner'); if (b) b.className = ''; }
   });
 
   function boot() {
     injectCSS(); injectBadge();
-    try { if (!document.cookie) document.cookie = 'session=pf_8f3a7c21b4e8d6; path=/'; } catch (e) {}
+    try { if (!document.cookie) document.cookie = 'session=demo_8f3a7c21b4e8d6; path=/'; } catch (e) {}
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();

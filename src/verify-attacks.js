@@ -27,7 +27,7 @@ function stubs() {
       cache: { get: () => null, set: noop, has: () => false },
       log: { mark: noop, count: () => 0, all: () => [] },
     },
-    __pfx: noop, setInterval: noop, clearInterval: noop, setTimeout: noop, clearTimeout: noop,
+    __oax: noop, setInterval: noop, clearInterval: noop, setTimeout: noop, clearTimeout: noop,
     requestAnimationFrame: noop, Date: { now: () => 0 }, console,
   };
 }

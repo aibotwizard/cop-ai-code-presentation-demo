@@ -15,8 +15,8 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{font-family:'Hanken Grotesk',-apple-system,Helvetica,Arial,sans-serif;background:#F4F4F1;color:#1C1C1A;-webkit-font-smoothing:antialiased;}
-  ::selection{background:#FFCC00;color:#1C1C1A;}
-  @keyframes pfrise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  ::selection{background:#FF6F61;color:#1C1C1A;}
+  @keyframes oarise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </helmet>
 
@@ -25,7 +25,7 @@
   <header style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #E2E2DE;">
     <div style="max-width:1320px;margin:0 auto;height:64px;display:flex;align-items:center;gap:22px;padding:0 32px;">
       <a href="RAG%20Search.dc.html" style="display:flex;align-items:center;gap:11px;text-decoration:none;">
-        <div style="width:34px;height:34px;background:#FFCC00;border-radius:9px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:34px;height:34px;background:#FF6F61;border-radius:9px;display:flex;align-items:center;justify-content:center;">
           <svg width="18" height="18" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg>
         </div>
         <span style="font-weight:800;font-size:18px;letter-spacing:-0.02em;color:#1C1C1A;">Careers</span>
@@ -35,7 +35,7 @@
       <nav style="margin-left:auto;display:flex;align-items:center;gap:4px;">
         <a href="RAG%20Search.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:#5C5C58;text-decoration:none;" style-hover="background:#F4F4F1;color:#1C1C1A;">Search</a>
         <a href="Recruiting%20Assistant.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:#5C5C58;text-decoration:none;" style-hover="background:#F4F4F1;color:#1C1C1A;">Assistant</a>
-        <a href="Candidate%20Summary.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:700;color:#1C1C1A;background:#FFCC00;text-decoration:none;">Candidates</a>
+        <a href="Candidate%20Summary.dc.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:700;color:#1C1C1A;background:#FF6F61;text-decoration:none;">Candidates</a>
       </nav>
       <div style="width:1px;height:26px;background:#E2E2DE;margin:0 4px 0 10px;"></div>
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#B0B0AA;">
@@ -71,7 +71,7 @@
 
     <div style="background:#fff;border:1px solid #E2E2DE;border-radius:18px;padding:24px 26px;margin-bottom:22px;">
       <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <div style="width:68px;height:68px;border-radius:18px;background:#FFE27A;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#1C1C1A;flex-shrink:0;">SH</div>
+        <div style="width:68px;height:68px;border-radius:18px;background:#FFB4A8;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#1C1C1A;flex-shrink:0;">SH</div>
         <div style="flex:1;min-width:200px;">
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
             <h1 style="margin:0;font-size:25px;font-weight:800;letter-spacing:-0.02em;">Sofia Haddad</h1>
@@ -104,9 +104,9 @@
         </div>
 
         <sc-if value="{{ tabSummary }}" hint-placeholder-val="{{ true }}">
-          <div style="background:#fff;border:1px solid #E2E2DE;border-radius:18px;overflow:hidden;animation:pfrise .25s ease;">
+          <div style="background:#fff;border:1px solid #E2E2DE;border-radius:18px;overflow:hidden;animation:oarise .25s ease;">
             <div style="display:flex;align-items:center;gap:11px;padding:16px 24px;background:#00474F;color:#fff;">
-              <div style="width:28px;height:28px;border-radius:8px;background:#FFCC00;display:flex;align-items:center;justify-content:center;">
+              <div style="width:28px;height:28px;border-radius:8px;background:#FF6F61;display:flex;align-items:center;justify-content:center;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1C1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L19 9l-4.1 1.4L12 15l-1.9-4.6L6 9l4.1-1.4z"></path></svg>
               </div>
               <span style="font-size:14.5px;font-weight:800;">AI Candidate Summary</span>
@@ -139,7 +139,7 @@
                 </sc-if>
 
                 <sc-if value="{{ block.isCallout }}" hint-placeholder-val="{{ false }}">
-                  <div style="margin-top:18px;padding:16px 18px;background:#FFFBEC;border:1px solid #FFE9A0;border-left:4px solid #FFCC00;border-radius:12px;font-size:14.5px;line-height:1.6;color:#1C1C1A;font-weight:600;"><sc-for list="{{ block.segs }}" as="sg" hint-placeholder-count="3"><sc-if value="{{ sg.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sg.text }}</span></sc-if><sc-if value="{{ sg.isCite }}" hint-placeholder-val="{{ false }}"><span onClick="{{ sg.onClick }}" style="{{ sg.style }}">{{ sg.n }}</span></sc-if></sc-for></div>
+                  <div style="margin-top:18px;padding:16px 18px;background:#FFF4F2;border:1px solid #FFD2C9;border-left:4px solid #FF6F61;border-radius:12px;font-size:14.5px;line-height:1.6;color:#1C1C1A;font-weight:600;"><sc-for list="{{ block.segs }}" as="sg" hint-placeholder-count="3"><sc-if value="{{ sg.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sg.text }}</span></sc-if><sc-if value="{{ sg.isCite }}" hint-placeholder-val="{{ false }}"><span onClick="{{ sg.onClick }}" style="{{ sg.style }}">{{ sg.n }}</span></sc-if></sc-for></div>
                 </sc-if>
 
               </sc-for>
@@ -148,7 +148,7 @@
         </sc-if>
 
         <sc-if value="{{ tabFields }}" hint-placeholder-val="{{ false }}">
-          <div style="background:#fff;border:1px solid #E2E2DE;border-radius:18px;padding:24px 26px;animation:pfrise .25s ease;">
+          <div style="background:#fff;border:1px solid #E2E2DE;border-radius:18px;padding:24px 26px;animation:oarise .25s ease;">
             <div style="font-size:12px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#9A9A95;margin-bottom:14px;">Personal</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;margin-bottom:24px;">
               <sc-for list="{{ personal }}" as="p" hint-placeholder-count="4">
@@ -182,7 +182,7 @@
               <sc-for list="{{ experience }}" as="x" hint-placeholder-count="3">
                 <div style="display:flex;gap:14px;">
                   <div style="display:flex;flex-direction:column;align-items:center;">
-                    <div style="width:11px;height:11px;border-radius:50%;background:#FFCC00;border:2px solid #fff;box-shadow:0 0 0 1px #E2E2DE;margin-top:5px;"></div>
+                    <div style="width:11px;height:11px;border-radius:50%;background:#FF6F61;border:2px solid #fff;box-shadow:0 0 0 1px #E2E2DE;margin-top:5px;"></div>
                     <div style="width:2px;flex:1;background:#EFEFEC;"></div>
                   </div>
                   <div style="padding-bottom:18px;">
@@ -197,7 +197,7 @@
         </sc-if>
 
         <sc-if value="{{ tabOriginal }}" hint-placeholder-val="{{ false }}">
-          <div style="animation:pfrise .25s ease;">
+          <div style="animation:oarise .25s ease;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:13px;color:#9A9A95;font-weight:600;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9A9A95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><path d="M14 2v6h6"></path></svg>
               Haddad_Sofia_CV.pdf · 3 pages · rendered original
@@ -230,7 +230,7 @@
       <div style="position:sticky;top:88px;display:flex;flex-direction:column;gap:18px;">
         <div style="background:#00474F;border-radius:18px;padding:24px;color:#fff;">
           <div style="display:flex;align-items:center;gap:20px;">
-            <div style="position:relative;width:96px;height:96px;border-radius:50%;background:conic-gradient(#FFCC00 0 96%, rgba(255,255,255,0.16) 96% 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="position:relative;width:96px;height:96px;border-radius:50%;background:conic-gradient(#FF6F61 0 96%, rgba(255,255,255,0.16) 96% 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
               <div style="width:72px;height:72px;border-radius:50%;background:#00474F;display:flex;flex-direction:column;align-items:center;justify-content:center;">
                 <span style="font-size:25px;font-weight:800;line-height:1;">96<span style="font-size:13px;">%</span></span>
                 <span style="font-size:9.5px;color:#A7CBD1;font-weight:700;letter-spacing:0.04em;">MATCH</span>
@@ -245,7 +245,7 @@
             <sc-for list="{{ breakdown }}" as="b" hint-placeholder-count="4">
               <div style="display:flex;align-items:center;gap:12px;">
                 <span style="font-size:12.5px;font-weight:600;color:#CFE3E6;width:96px;">{{ b.label }}</span>
-                <div style="flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,0.14);overflow:hidden;"><div style="height:100%;border-radius:99px;background:#FFCC00;width:{{ b.pct }}%;"></div></div>
+                <div style="flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,0.14);overflow:hidden;"><div style="height:100%;border-radius:99px;background:#FF6F61;width:{{ b.pct }}%;"></div></div>
                 <span style="font-size:12px;font-weight:800;width:34px;text-align:right;">{{ b.pct }}</span>
               </div>
             </sc-for>
@@ -289,7 +289,7 @@ class Component extends DCLogic {
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: '18px', height: '18px',
       padding: '0 4px', borderRadius: '5px', fontSize: '10.5px', fontWeight: 800, cursor: 'pointer',
       verticalAlign: 'top', position: 'relative', top: '-2px', margin: '0 1px', transition: 'all .15s',
-      background: A === n ? '#FFCC00' : '#E7F1F5', color: A === n ? '#1C1C1A' : '#0A5566'
+      background: A === n ? '#FF6F61' : '#E7F1F5', color: A === n ? '#1C1C1A' : '#0A5566'
     });
     const seg = (str) => {
       const out = []; const re = /\[(\d+)\]/g; let last = 0, m;
@@ -330,13 +330,13 @@ class Component extends DCLogic {
       select: () => this.setActive(s.n),
       cardStyle: {
         padding: '12px 13px', borderRadius: '12px', cursor: 'pointer', transition: 'all .15s',
-        border: '1px solid ' + (A === s.n ? '#FFCC00' : '#E2E2DE'),
-        background: A === s.n ? '#FFFBEC' : '#fff'
+        border: '1px solid ' + (A === s.n ? '#FF6F61' : '#E2E2DE'),
+        background: A === s.n ? '#FFF4F2' : '#fff'
       },
       badgeStyle: {
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px',
         borderRadius: '6px', fontSize: '11px', fontWeight: 800, flexShrink: 0,
-        background: A === s.n ? '#FFCC00' : '#E7F1F5', color: A === s.n ? '#1C1C1A' : '#0A5566'
+        background: A === s.n ? '#FF6F61' : '#E7F1F5', color: A === s.n ? '#1C1C1A' : '#0A5566'
       }
     }));
 
@@ -384,8 +384,8 @@ class Component extends DCLogic {
       shortlistStyle: {
         height: '42px', padding: '0 18px', borderRadius: '10px', fontFamily: 'inherit', fontSize: '14px',
         fontWeight: 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px',
-        border: '1px solid ' + (sl ? '#FFCC00' : '#1C1C1A'),
-        background: sl ? '#FFCC00' : '#1C1C1A', color: '#1C1C1A',
+        border: '1px solid ' + (sl ? '#FF6F61' : '#1C1C1A'),
+        background: sl ? '#FF6F61' : '#1C1C1A', color: '#1C1C1A',
         ...(sl ? {} : { color: '#fff' })
       }
     };
