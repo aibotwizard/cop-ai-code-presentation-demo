@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OWASP LLM &amp; Agentic Attack Playground · Careers demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F4F1; --surface:#fff; --ink:#1C1C1A; --subink:#5C5C58; --faint:#9A9A95;
+    --hair:#E2E2DE; --accent:#FFCC00; --teal:#00474F; --teal-soft:#A7CBD1;
+    --llm:#00474F; --agentic:#6B3FA0;
+    --danger:#C2362F; --danger-bg:#FDECEA; --danger-soft:#F2B8B5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Hanken Grotesk',-apple-system,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  ::selection{background:var(--accent);color:var(--ink);}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  header{background:var(--surface);border-bottom:1px solid var(--hair);}
+  .hrow{display:flex;align-items:center;gap:12px;height:64px;}
+  .mark{width:34px;height:34px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;}
+  .name{font-weight:800;font-size:18px;letter-spacing:-0.02em;}
+  .vsep{width:1px;height:24px;background:var(--hair);}
+  .crumb{font-size:13px;font-weight:600;color:var(--subink);}
+  .demo-pill{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-soft);border-radius:99px;padding:5px 11px;font-size:11px;font-weight:800;}
+
+  .hero{padding:44px 0 6px;}
+  .hero h1{font-size:33px;line-height:1.11;letter-spacing:-0.025em;margin:0 0 12px;font-weight:800;max-width:780px;}
+  .hero h1 .hl{background:linear-gradient(180deg,transparent 62%,var(--accent) 62%);padding:0 3px;}
+  .hero p{margin:0;color:var(--subink);font-size:15.5px;max-width:740px;}
+  .hero .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;}
+  .tagpill{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--hair);border-radius:99px;padding:7px 13px;font-size:12.5px;font-weight:700;}
+
+  .lead-in{margin:30px 0 4px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin:12px 0 8px;}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hair);border-radius:18px;padding:22px;text-decoration:none;transition:border-color .18s,box-shadow .18s,transform .18s;}
+  .card:hover{border-color:var(--ink);box-shadow:0 12px 30px -20px rgba(0,0,0,.5);transform:translateY(-2px);}
+  .card .ci{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .card.primary .ci{background:var(--accent);}
+  .card.scoreboard .ci{background:#E4EDEE;color:var(--teal);}
+  .card.sim .ci{background:#EEE7F5;color:var(--agentic);}
+  .card .kick{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-bottom:5px;}
+  .card h2{margin:0 0 7px;font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+  .card p{margin:0;font-size:13.5px;color:var(--subink);flex:1;}
+  .card .go{margin-top:16px;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:var(--teal);}
+  .card .go svg{transition:transform .18s;}
+  .card:hover .go svg{transform:translateX(3px);}
+  .card .codes{margin-top:12px;font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--danger);letter-spacing:.02em;}
+
+  .more{margin:26px 0 6px;background:var(--teal);color:#fff;border-radius:18px;padding:20px 22px;}
+  .more .t{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-soft);}
+  .more h3{margin:6px 0 10px;font-size:17px;font-weight:800;}
+  .more .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:7px 13px;font-size:12.5px;font-weight:700;text-decoration:none;color:#fff;}
+  .chip:hover{background:rgba(255,255,255,.18);}
+
+  footer{padding:22px 0 60px;color:var(--faint);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;border-top:1px solid var(--hair);margin-top:30px;padding-top:22px;}
+  footer a{font-weight:700;color:var(--subink);text-decoration:none;}
+  footer a:hover{color:var(--teal);}
+  @media(max-width:640px){.hero h1{font-size:26px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap hrow">
+    <span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><g fill="#1C1C1A"><rect x="7" y="1" width="4" height="16" rx="2"></rect><rect x="1" y="7" width="16" height="4" rx="2"></rect></g></svg></span>
+    <span class="name">Careers</span>
+    <span class="vsep"></span>
+    <span class="crumb">AI Hiring Assistant · OWASP playground</span>
+    <span class="demo-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      Deliberately insecure — demo only
+    </span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>A hiring app wired to fail <span class="hl">every OWASP test</span>.</h1>
+    <p>A deliberately-insecure "Careers" hiring app, instrumented as an OWASP "Juice Shop" for the
+    <b>Top 10 for LLM Applications (2025)</b> and the <b>Top 10 for Agentic Applications (2026)</b>.
+    Pick a view below to watch each attack happen — on a real UI, with the fix explained.</p>
+    <div class="tags">
+      <span class="tagpill"><span style="width:8px;height:8px;border-radius:99px;background:var(--llm);display:inline-block"></span>LLM01–LLM10</span>
+      <span class="tagpill"><span style="width:8px;height:8px;border-radius:99px;background:var(--agentic);display:inline-block"></span>ASI01–ASI10</span>
+      <span class="tagpill">21 live demos</span>
+    </div>
+  </section>
+
+  <div class="lead-in">Choose a view</div>
+  <div class="cards">
+    <a class="card primary" href="./src/index.html">
+      <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C1C1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"/></svg></span>
+      <span class="kick">Interactive playground</span>
+      <h2>The Careers app</h2>
+      <p>The full instrumented hiring app — five pages with red ▶ play buttons next to the exact component each
+      attack targets. Switch between the Applicant and HR roles and run attacks on the live UI.</p>
+      <span class="codes">Application Assistant · CV Upload · RAG Search · Recruiting Assistant · Candidate Summary</span>
+      <span class="go">Open the app <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="card scoreboard" href="./presentation/owasp-juice-shop.html">
+      <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+      <span class="kick">Catalog · scoreboard</span>
+      <h2>OWASP scoreboard</h2>
+      <p>All 20 OWASP entries as cards. Hit "Run attack" on any one to play a scripted, client-side walkthrough
+      of the exploit, then read the one-line mitigation. Search and filter by LLM / Agentic.</p>
+      <span class="codes">Juice-Shop-style · 20 attack cards</span>
+      <span class="go">Open scoreboard <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="card sim" href="./presentation/adversial.html">
+      <span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 1 0 6 0v-1a3 3 0 0 0 0-6V5a3 3 0 0 0-3-3z"/><path d="M9 9h6"/></svg></span>
+      <span class="kick">Sandbox</span>
+      <h2>Adversarial simulator</h2>
+      <p>A hands-on sandbox for crafting and firing adversarial inputs against the mock assistant, to see how
+      prompt injection and agentic attacks play out step by step.</p>
+      <span class="codes">Craft · inject · observe</span>
+      <span class="go">Open simulator <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+
+  <div class="more">
+    <div class="t">Reference</div>
+    <h3>Specs &amp; the OWASP sources</h3>
+    <div class="chips">
+      <a class="chip" href="./specs/owasp-top-10-llm-and-agentic-attacks.md">📄 Attack catalog</a>
+      <a class="chip" href="./specs/attack-injection-plan.md">📄 Injection plan</a>
+      <a class="chip" target="_blank" rel="noopener" href="https://genai.owasp.org/llm-top-10/">↗ OWASP LLM Top 10</a>
+      <a class="chip" target="_blank" rel="noopener" href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">↗ OWASP Agentic Top 10</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Training/demo artifact — no real models, tools, or code run. XSS payloads are contained; nothing is exfiltrated. All credentials are obvious fakes.</span>
+    <a target="_blank" rel="noopener" href="https://genai.owasp.org/llm-top-10/">OWASP LLM Top 10</a>
+    <a target="_blank" rel="noopener" href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Agentic Top 10</a>
+  </footer>
+</main>
+</body>
+</html>
